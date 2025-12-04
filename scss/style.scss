@@ -1,0 +1,240 @@
+@import "_metropolis.scss";
+
+body {
+  font-family: "Metropolis", sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #323232;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  width: 100%;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.container {
+  max-width: 1350px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.ipad-anim {
+  position: relative;
+  min-height: 190vh;
+}
+
+.iPad-image-sequence {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.text-section {
+  max-width: 650px;
+  width: 50%;
+  position: absolute;
+  top: calc(50vh - 350px);
+  left: 0;
+
+  h1 {
+    font-size: 60px;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1;
+    margin-bottom: 24px;
+
+    span {
+      color: #0d9161;
+      display: block;
+    }
+  }
+
+  p {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.22;
+    color: #868686;
+    letter-spacing: 0.6px;
+    margin-bottom: 64px;
+  }
+
+  a {
+    font-family: "Metropolis";
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+    background: #0d9161;
+    border-radius: 100px;
+    color: #ffffff;
+    padding: 15px 30px;
+    text-decoration: none;
+  }
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.green-text {
+  color: #0d9161;
+}
+
+// traditional-way Animation css
+
+.traditional-way-track,
+.getz-paid-way-animation {
+  position: relative;
+  height: 360vh;
+}
+
+.getz-anim-wrapper {
+  position: relative;
+
+  .coin-sec {
+    position: absolute;
+    bottom: 10px;
+    right: 20%;
+    max-width: 100px;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+.traditional-way {
+  height: calc(100vh - 150px);
+  position: sticky;
+  top: 100px;
+  left: 0;
+  width: 100%;
+  margin-bottom: 100px;
+
+  .traditional-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      color: #0d9161;
+      font-weight: 700;
+      font-size: 32px;
+      margin: 0;
+    }
+
+    a {
+      color: #323232;
+      font-family: "Metropolis";
+      font-weight: 700;
+      font-style: Bold;
+      font-size: 20px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+}
+
+.traditional-para {
+  margin-bottom: 100px;
+
+  h2 {
+    font-weight: 700;
+    font-size: 28px;
+    margin-top: 40px;
+    margin-bottom: 16px;
+    margin-bottom: 0;
+  }
+
+  p {
+    font-family: "Metropolis";
+    font-weight: 500;
+    font-style: Medium;
+    font-size: 18px;
+    color: #999999;
+    margin-top: 0;
+    line-height: normal;
+  }
+}
+
+.traditional-process-animation {
+  svg {
+    width: 100%;
+    height: auto;
+  }
+
+  .travel-line {
+    fill: none;
+    stroke-width: 5px;
+  }
+
+  .icon {
+    stroke: #c4c4c4;
+  }
+
+  .fill-disabled-color {
+    fill: #c4c4c4;
+  }
+
+  .text {
+    opacity: 0;
+  }
+
+  .npci {
+    filter: contrast(0);
+    stroke: none !important;
+  }
+}
+
+#getz-paid-way-svg {
+  .getz-paid-text {
+    filter: contrast(0);
+    stroke: none !important;
+  }
+  svg {
+    width: 100%;
+    height: 55vh;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .iPad-image-sequence {
+    height: 50vh;
+  }
+
+  .text-section {
+    padding: 20px;
+  }
+}

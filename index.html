@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GetzPaid - Timely Payments Solution</title>
+    <meta name="description" content="GetzPaid - because patience is a virtue, but timely payments are divine.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/scss/style.css">
+</head>
+
+<body>
+    <header>
+        <img src="/images/header.png" alt="">
+    </header>
+    <main>
+        <section>
+            <div class="container">
+                <div class="ipad-anim">
+                    <div class="iPad-image-sequence">
+                        <div class="loading">Loading animation...</div>
+                        <canvas class="canvas" aria-label="Animation showing GetzPaid app interface"></canvas>
+                    </div>
+
+                    <div class="text-section">
+                        <h1 id="main-heading"><span>GetzPAID,</span> because patience is a virtue, but timely payments
+                            are divine.</h1>
+
+                        <p>Say goodbye to late payments, endless delays, and the never ending follow ups. Introducing
+                            GetzPAID – your online platform to hassle-free and priority-driven payment collections. Now,
+                            everyone can easily get paid On Time, Every Time.</p>
+
+                        <a href="#">SignUp Now!</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section>
+            <div class="container">
+                <div class="traditional-way-track">
+                    <div class="traditional-way">
+                        <div class="traditional-heading">
+                            <h2>How it works?</h2>
+                            <a href="#"> Know More <i class="fa-solid fa-right-long"></i> </a>
+                        </div>
+                        <div class="traditional-para">
+                            <h2>Traditional way</h2>
+                            <p>If the payer accepts,<br>The destination bank sends confirmation back to the <br>sponsor
+                                bank
+                                and NPCI, which takes
+                                another 3-4 days.</p>
+                        </div>
+
+                        <div class="traditional-process-animation">
+                            <div id="traditional-way"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="getz-paid-way-animation">
+                    <div class="traditional-way">
+                        <div class="traditional-heading">
+                            <h2>How it works?</h2>
+                            <a href="#"> Know More </a>
+                        </div>
+                        <div class="traditional-para">
+                            <h2>Traditional way</h2>
+                            <p>If the payer accepts, 
+                                The destination bank sends confirmation back to the sponsor bank and NPCI, which takes
+                                another 3-4 days.</p>
+                        </div>
+
+                        <div class="traditional-process-animation">
+                            <div class="getz-anim-wrapper">
+                                <div id="getz-paid-way-svg"></div>
+                                <div class="coin-sec"><img src="/images/gray-rupee.png" alt="coin-animation.gif">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/DrawSVGPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+    <!-- <script src="/js/inline-svg.js"></script> -->
+
+
+
+
+
+    <script>
+        // Register ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        const canvas = document.querySelector('.canvas');
+        const context = canvas.getContext('2d');
+        const loadingElement = document.querySelector('.loading');
+
+        const frame = {
+            currentIndex: 0,
+            maxIndex: 40
+        };
+
+        const images = [];
+        let imagesLoaded = 0;
+        let imagesFailed = 0;
+
+        // Set canvas dimensions
+        function setCanvasSize() {
+            const container = document.querySelector('.iPad-image-sequence');
+            if (container) {
+                canvas.width = container.clientWidth;
+                canvas.height = container.clientHeight;
+            } else {
+                // Fallback to parent container or window
+                const parent = canvas.parentElement;
+                canvas.width = parent.clientWidth;
+                canvas.height = parent.clientHeight;
+            }
+        }
+
+        // Preload all images
+        function preloadImages() {
+            for (let i = 0; i <= frame.maxIndex; i++) {
+                const imageUrl = `images/ipad/${i.toString().padStart(4, '0')}.png`;
+                const img = new Image();
+                img.src = imageUrl;
+
+                img.onload = function () {
+                    imagesLoaded++;
+                    checkAllImagesLoaded();
+                };
+
+                img.onerror = function () {
+                    console.error(`Failed to load image: ${imageUrl}`);
+                    imagesFailed++;
+                    checkAllImagesLoaded();
+                };
+
+                images.push(img);
+            }
+        }
+
+        // Check if all images are loaded (successfully or failed)
+        function checkAllImagesLoaded() {
+            const totalAttempted = imagesLoaded + imagesFailed;
+            if (totalAttempted === frame.maxIndex + 1) {
+                if (imagesFailed > 0) {
+                    console.warn(`${imagesFailed} images failed to load`);
+                }
+
+                // Hide loading indicator
+                if (loadingElement) {
+                    loadingElement.style.display = 'none';
+                }
+
+                // Start with first frame
+                loadImage(frame.currentIndex);
+
+                // Initialize animation
+                startAnimation();
+            }
+        }
+
+        // Load and display a specific frame - IMPROVED CENTERING
+        function loadImage(index) {
+            if (index >= 0 && index <= frame.maxIndex && images[index]) {
+                const img = images[index];
+
+                // Set canvas size based on container
+                setCanvasSize();
+
+                // Clear canvas first
+                context.clearRect(0, 0, canvas.width, canvas.height);
+
+                // If image is not fully loaded yet, wait
+                if (!img.complete || img.naturalWidth === 0) {
+                    return;
+                }
+
+                // Calculate scaling to maintain aspect ratio
+                const imgAspectRatio = img.width / img.height;
+                const canvasAspectRatio = canvas.width / canvas.height;
+
+                let renderableWidth, renderableHeight, xStart, yStart;
+
+                // If image's aspect ratio is larger than canvas's aspect ratio,
+                // image must be fitted to width, otherwise fitted to height
+                if (imgAspectRatio > canvasAspectRatio) {
+                    renderableWidth = canvas.width;
+                    renderableHeight = canvas.width / imgAspectRatio;
+                    xStart = 0;
+                    yStart = (canvas.height - renderableHeight) / 2;
+                } else {
+                    renderableHeight = canvas.height;
+                    renderableWidth = canvas.height * imgAspectRatio;
+                    xStart = (canvas.width - renderableWidth) / 2;
+                    yStart = 0;
+                }
+
+                // Draw image centered on canvas with high quality
+                context.imageSmoothingEnabled = true;
+                context.imageSmoothingQuality = 'high';
+                context.drawImage(img, xStart, yStart, renderableWidth, renderableHeight);
+
+                frame.currentIndex = index;
+            }
+        }
+
+        // Initialize scroll-triggered animation
+        function startAnimation() {
+            // Kill any existing ScrollTrigger to avoid duplicates
+            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+
+            const timeline = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".ipad-anim",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 0.3,
+                    invalidateOnRefresh: true
+                }
+            });
+
+            timeline.to(frame, {
+                currentIndex: frame.maxIndex,
+                roundProps: "currentIndex",
+                onUpdate: () => loadImage(Math.floor(frame.currentIndex)),
+                ease: "none"
+            });
+        }
+
+        // Handle window resize
+        function handleResize() {
+            setCanvasSize();
+            if (frame.currentIndex >= 0) {
+                loadImage(frame.currentIndex);
+            }
+            ScrollTrigger.refresh();
+        }
+
+        // Initialize everything when DOM is ready
+        function init() {
+            // Wait for DOM to be fully loaded
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => {
+                    initializeApp();
+                });
+            } else {
+                initializeApp();
+            }
+        }
+
+        function initializeApp() {
+            // Set initial canvas size
+            setCanvasSize();
+
+            // Add CSS to ensure canvas displays correctly
+            canvas.style.display = 'block';
+            canvas.style.margin = '0 auto';
+
+            // Start preloading images
+            preloadImages();
+
+            // Add resize listener with debounce
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(handleResize, 250);
+            });
+
+            // Initial refresh after a short delay to ensure everything is rendered
+            setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 1000);
+        }
+
+        // Start the application
+        init();
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            gsap.registerPlugin(ScrollTrigger);
+            $('#traditional-way').load('/images/svg/traditional-way.html', function () {
+
+                // Wait slightly for DOM render
+                setTimeout(() => {
+
+                    // 1. Get the line and length
+                    const traditionalLine = document.querySelector("#traditional-way .travel-line");
+
+                    if (!traditionalLine) {
+                        console.error("Travel line not found!");
+                        return;
+                    }
+
+                    const length = traditionalLine.getTotalLength();
+
+                    // 2. Set initial Line State
+                    gsap.set(traditionalLine, {
+                        strokeDasharray: length,
+                        strokeDashoffset: length
+                    });
+
+                    // 3. Set initial Text/Icon State
+                    const allTexts = [".text-one", ".text-two", ".text-three", ".text-four", ".text-5", ".text"];
+
+                    gsap.set(allTexts, {
+                        scale: 0,
+                        opacity: 0,
+                        transformOrigin: "center center",
+                        transformBox: "fill-box"
+                    });
+
+                    // 4. Create the Timeline
+                    const tl = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: ".traditional-way-track",
+                            scroller: "body",
+                            start: "top top", // Start when top of section hits top of viewport
+                            // FIX: Pin the track so it stays on screen while we scroll
+                            // pin: true,
+                            // FIX: This adds 4000px of "virtual scroll" space. 
+                            // Increase this number (e.g., 5000 or 6000) to make the animation SLOWER.
+                            end: "bottom bottom",
+                            scrub: 2,
+                            invalidateOnRefresh: true
+                        },
+                        defaults: { ease: "none" }
+                    });
+
+                    // 5. Build the Animation Chain
+
+                    // Note on Easing: Used "back.out(1.2)" instead of "bounce". 
+                    // "Bounce" looks glitchy on scroll. "Back" gives a smooth pop.
+
+                    // --- STEP 1 ---
+                    tl.to(traditionalLine, { strokeDashoffset: length / 1.2 })
+                        .to(".text-one", { scale: 1, opacity: 1, ease: "back.out(0.8)", duration: 0.5 }, ">")
+                        .to(".icon-one", { stroke: "#65ba97" }, "<")
+                        .to(".icon-one.fill-disabled-color", { fill: "#65ba97" }, "<");
+
+
+                    // --- STEP 2 ---
+                    tl.to(traditionalLine, { strokeDashoffset: length / 1.6 })
+                        .to(".text-two", { scale: 1, opacity: 1, ease: "back.out(0.8)", duration: 0.5 }, ">")
+                        .to(".icon-two", { stroke: "#518262" }, "<")
+                        .to(".icon-two.fill-disabled-color", { fill: "#518262" }, "<");
+
+                    // --- STEP 3 ---
+                    tl.to(traditionalLine, { strokeDashoffset: length / 2.3 })
+                        .to(".text-three", { scale: 1, opacity: 1, ease: "back.out(0.8)", duration: 0.5 }, ">")
+                        .to(".icon-three", { stroke: "#7bced3" }, "<")
+                        // .to(".icon-three.fill-disabled-color", { fill: "#7bced3" }, "<")
+                        .to(".npci", { filter: "none", stroke: "none" }, "<");
+
+                    // --- STEP 4 ---
+                    tl.to(traditionalLine, { strokeDashoffset: length / 4.1 })
+                        .to(".text-four", { scale: 1, opacity: 1, ease: "back.out(0.8)", duration: 0.5 }, ">")
+                        .to(".icon-four", { stroke: "#419098" }, "<")
+                        .to(".icon-four.fill-disabled-color", { fill: "#419098" }, "<");
+
+                    // --- STEP 5 ---
+                    tl.to(traditionalLine, { strokeDashoffset: 0 })
+                        .to(".text-5", { scale: 1, opacity: 1, ease: "back.out(0.8)", duration: 0.5 }, ">")
+                        .to(".icon-5", { stroke: "#598ed4" }, "<")
+                        .to(".icon-5.fill-disabled-color", { fill: "#598ed4" }, "<")
+                        .to("#traditional-way .arrow-end", { stroke: '#26579b' }, "<");
+
+                }, 200);
+
+            });
+
+            $('#getz-paid-way-svg').load('/images/svg/getz-paid-way.html', function () {
+                setTimeout(() => {
+
+                    // 1. Get the line and length
+                    const allLines = [
+                        "#getz-paid-way-svg .line-1",
+                        "#getz-paid-way-svg .line-2",
+                        "#getz-paid-way-svg .line-3",
+                        "#getz-paid-way-svg .line-4",
+                    ];
+
+                    allLines.forEach(lineSelector => {
+                        const line = document.querySelector(lineSelector);
+                        if (line) {
+                            const length = line.getTotalLength();
+                            gsap.set(line, {
+                                strokeDasharray: length + 2,
+                                strokeDashoffset: length + 2
+                            });
+                        } else {
+                            console.error(`Line not found: ${lineSelector}`);
+                        }
+                    });
+
+                    gsap.set("#getz-paid-way-svg .arrow-1, #getz-paid-way-svg .arrow-2, #getz-paid-way-svg .arrow-3, #getz-paid-way-svg .arrow-4, #getz-paid-way-svg .icon-1, #getz-paid-way-svg .icon-2, #getz-paid-way-svg .icon-3", {
+                        stroke: "#c4c4c4"
+                    });
+
+
+
+
+                    const CoinSound = new Audio('/sound/mixkit-clinking-coins-1993.wav');
+                    const soundDiv = $(".getz-anim-wrapper .coin-sec");
+                    soundDiv.on('click', function () {
+                        CoinSound.muted = false;
+                        CoinSound.currentTime = 0;
+                        CoinSound.play();
+                    });
+
+                  
+
+                    let soundEnabled = false;
+
+                    // 1. Define your sound playback function
+                    function playCoinSound() {
+                        // Check if the browser allows audio yet (if the user has clicked)
+                        if (soundEnabled) {
+                            // Assuming soundDiv.trigger('click') executes the actual play logic
+                            soundDiv.trigger('click');
+                        }
+                    }
+
+                    // 2. Add a global listener to enable sound on the first interaction
+                    document.addEventListener('click', function enableAudio() {
+                        soundEnabled = true;
+                        // You can remove the listener now since the flag is set
+                        document.removeEventListener('click', enableAudio);
+                    }, { once: true });
+
+                    soundDiv.trigger('click');
+                    CoinSound.muted = true;
+
+
+
+                    // 3. Set initial Text/Icon State
+                    const getzAllTexts = ["#getz-paid-way-svg .text"];
+
+                    gsap.set(getzAllTexts, {
+                        scale: 0,
+                        opacity: 0,
+                        transformOrigin: "center center",
+                        transformBox: "fill-box"
+                    });
+
+                    // 4. Create the Timeline
+                    const tl2 = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: ".getz-paid-way-animation",
+                            scroller: "body",
+                            start: "top top", // Start when top of section hits top of viewport
+                            // FIX: Pin the track so it stays on screen while we scroll
+                            // pin: true,
+                            // FIX: This adds 4000px of "virtual scroll" space. 
+                            // Increase this number (e.g., 5000 or 6000) to make the animation SLOWER.
+                            end: "bottom bottom",
+                            scrub: 2,
+                            invalidateOnRefresh: true
+                        },
+                        defaults: { ease: "none" }
+                    });
+
+                    // 5. Build the Animation Chain
+
+                    // Note on Easing: Used "back.out(1.2)" instead of "bounce". 
+                    // "Bounce" looks glitchy on scroll. "Back" gives a smooth pop.
+
+                    // --- STEP 1 ---
+                    tl2.to("#getz-paid-way-svg svg .line-1", { strokeDashoffset: length })
+                        .to(".arrow-1", { stroke: "#29367d" }, ">")
+                        .to(".text-1", { scale: 1, opacity: 1, ease: "back.out(0.8)", duration: 0.5 }, ">")
+                        .to(".icon-1", { stroke: "#29367d" }, "<")
+                        ;
+
+
+                    // --- STEP 2 ---
+                    tl2.to("#getz-paid-way-svg svg .line-2", { strokeDashoffset: length })
+                        .to(".arrow-2", { stroke: "#0d9161" }, ">")
+                        .to("#getz-paid-way-svg .getz-paid-text", { filter: "none" }, ">")
+                        .to(".text-2", { scale: 1, opacity: 1, ease: "back.out(0.8)", duration: 0.5 }, ">")
+                        .to(".icon-2", { stroke: "#518262" }, "<");
+
+                    // --- STEP 3 ---
+                    tl2.to("#getz-paid-way-svg svg .line-3", { strokeDashoffset: length / 2.3 })
+                        .to(".arrow-3", { stroke: "#f0804a" }, ">")
+                        .to(".text-3", { scale: 1, opacity: 1, ease: "back.out(0.8)", duration: 0.5 }, ">")
+                        .to(".icon-3", { stroke: "#f0804a" }, "<");
+
+                    // --- STEP 4 ---
+                    tl2.to("#getz-paid-way-svg svg .line-4", { strokeDashoffset: length / 4.1 })
+                        .to(".arrow-4", { stroke: "#f0804a" }, ">")
+
+                        .to("#getz-paid-way-svg svg .boom-text", {
+                            scale: 1, opacity: 1, ease: "back.out(1)", duration: 0.5,
+                        }, "<")
+                        .set(".getz-anim-wrapper .coin-sec img", {
+                            attr: { src: "/images/coin-animation.gif" },
+                            // onComplete: () => {
+                            //     soundDiv.trigger('click');
+                            // }
+                        }, "<")
+                        .call(playCoinSound, null, "<");
+
+
+
+                }, 200);
+
+            });
+        });
+    </script>
+
+
+    <script>
+
+    </script>
+</body>
+
+</html>
