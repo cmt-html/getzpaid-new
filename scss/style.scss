@@ -9,6 +9,14 @@ body {
   padding: 0;
 }
 
+a {
+  transition: all 0.5s;
+
+  &:hover {
+    transform: scale(1.03) translateY(-5px);
+  }
+}
+
 header {
   width: 100%;
   text-align: center;
@@ -25,7 +33,7 @@ header {
 }
 
 .container {
-  max-width: 1350px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -138,7 +146,6 @@ header {
   top: 100px;
   left: 0;
   width: 100%;
-  margin-bottom: 100px;
 
   .traditional-heading {
     display: flex;
@@ -228,6 +235,651 @@ header {
   }
 }
 
+.pending-payment {
+  height: auto;
+  position: relative;
+
+  .traditional-way {
+    position: static;
+    height: auto;
+  }
+  .who-is-getzPAID,
+  .traditional-para {
+    h2 {
+      font-size: 48px;
+      line-height: 1.22;
+      color: #999999;
+    }
+  }
+}
+
+.who-is-getzPAID {
+  .traditional-way {
+    position: static;
+    height: auto;
+  }
+  .traditional-para {
+    h2 {
+      font-size: 32px;
+      line-height: 1.22;
+    }
+  }
+
+  + .cards {
+    max-width: 1090px;
+    margin: 0 auto;
+    ul {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 50px;
+      padding: 0;
+    }
+  }
+}
+
+section {
+  margin-bottom: 100px;
+}
+
+/* Reset and base styles */
+.cards {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.cards-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.card-item {
+  height: 620px;
+  perspective: 1000px;
+}
+
+/* Flip card styles */
+.flip-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.image-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  color: white;
+  padding: 30px 20px 20px;
+}
+
+.image-text h2 {
+  margin: 0 0 10px 0;
+  font-size: 24px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.image-text p {
+  margin: 0;
+  font-size: 16px;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+/* Back card styles */
+.flip-card-back {
+  background: #0b0b0b;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.card-back-content {
+  padding: 25px;
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #667eea #f0f0f0;
+}
+
+.card-back-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.card-back-content::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 3px;
+}
+
+.card-back-content::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 3px;
+}
+
+.card-back-content h2 {
+  color: #fff;
+  font-size: 22px;
+  margin: 0 0 15px 0;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #667eea;
+  font-weight: 600;
+}
+
+.card-description {
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+}
+
+/* Features list styles */
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.feature-item {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.feature-icon {
+  width: 20px;
+  height: 15px;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.feature-item p {
+  margin: 0;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.5;
+  flex: 1;
+}
+
+/* View all card styles */
+/* .view-all-card {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    } */
+
+.bg-color-card {
+  background: #0b0b0b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-view-all {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.btn-view-all:hover {
+  transform: scale(1.05);
+}
+
+.circle_with_arrow {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+  border: 1px solid #fff;
+  border-radius: 100px;
+}
+
+.circle_with_arrow img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.btn-view-all span {
+  font-size: 20px;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Animation for the circle */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.sets-us-bg {
+  background: linear-gradient(
+    180.4deg,
+    rgba(120, 120, 120, 0) -4.24%,
+    rgba(96, 96, 96, 0.17) 41.98%,
+    rgba(77, 77, 77, 0) 96.38%,
+    rgba(255, 255, 255, 0) 107.56%
+  );
+
+  padding-block: 100px;
+  padding-bottom: 0;
+  margin: 0;
+}
+
+.sets-us-wrapper {
+  height: 200vh;
+  position: relative;
+}
+
+.sets-us {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(525px, 1fr));
+  gap: 60px;
+  height: calc(100vh - 150px);
+  position: sticky;
+  top: 150px;
+
+  .left-part {
+    h3 {
+      color: #0d9161;
+      font-size: 32px;
+      line-height: 15px;
+      font-size: 32px;
+    }
+
+    h2 {
+      color: #323232;
+      font-size: 36px;
+      line-height: 1;
+    }
+  }
+
+  .right-part {
+    ul {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 50px;
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+
+      li {
+        position: relative;
+
+        &:nth-child(odd) {
+          top: 120px;
+        }
+
+        // &:nth-child(2n) {
+        //   .small-img {
+        //     left: auto;
+        //     right: -15%;
+        //   }
+        // }
+      }
+
+      .big-img {
+        position: relative;
+        max-width: 320px;
+        width: 100%;
+
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+
+        .small-img {
+          position: absolute;
+          bottom: -20px;
+          right: auto;
+          left: -15%;
+          width: 140px;
+          border-radius: 10px;
+          z-index: -1;
+
+          img {
+            max-width: 100%;
+            height: auto;
+          }
+        }
+      }
+    }
+  }
+}
+
+.know-more-btn {
+  color: #323232;
+  font-family: Metropolis;
+  font-weight: 700;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 8px;
+}
+
+.why-choose-getzPAID {
+  margin-bottom: 250px;
+  .traditional-para h2 {
+    font-size: 48px;
+    line-height: 1;
+    color: #323232;
+    margin-bottom: 0;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 70px;
+
+    .card-wrapper {
+      img {
+        max-width: 40px;
+        width: 100%;
+      }
+
+      h2,
+      p {
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #323232;
+      }
+
+      p {
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+footer {
+  background: #212121;
+
+  .top-footer-image {
+    max-width: 1100px;
+    width: 100%;
+    margin: auto;
+    margin-bottom: 60px;
+    position: relative;
+
+    img {
+      margin-top: -12%;
+      max-width: 100%;
+    }
+
+    .btn-sec {
+      position: absolute;
+      right: 5%;
+      bottom: 40%;
+      display: flex;
+      gap: 18px;
+
+      a {
+        border-radius: 25px;
+        border: 1px solid #fff;
+        color: #fff;
+        font-weight: 500;
+        font-size: 16px;
+        padding: 14px 19px;
+        line-height: normal;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .foo-logo {
+    max-width: 130px;
+    width: 100%;
+    margin-bottom: 60px;
+  }
+
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+
+    gap: 5%;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    padding-bottom: 60px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #4c4c4c;
+
+    li {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      h4 {
+        color: #fff;
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0;
+      }
+      a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 400;
+      }
+
+      .social-icons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+
+        a {
+          max-width: 46px;
+          width: 100%;
+          line-height: normal;
+          img {
+            max-width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .cp-right-sec {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 60px;
+
+    .left-sec {
+      max-width: 860px;
+
+      h4 {
+        // font-family: "Montserrat";
+        font-weight: 400;
+        font-size: 16px;
+        color: #fff;
+        margin-bottom: 10px;
+      }
+
+      p {
+        // font-family: "Metropolis";
+        font-weight: 400;
+        font-style: 100;
+        font-size: 16px;
+        line-height: 1;
+        color: #c1c1c1;
+      }
+    }
+
+    .cmt-logo {
+      text-align: right;
+      color: #fff;
+
+      p {
+        font-weight: 400;
+        font-style: Light;
+        font-size: 18px;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.fitll-btn {
+  background: #fff;
+  color: #1862cd !important;
+  box-shadow: -1px 1px 3px 0px #ababab1a;
+
+  box-shadow: -2px 6px 6px 0px #ababab17;
+
+  box-shadow: -5px 13px 8px 0px #ababab0d;
+
+  box-shadow: -9px 23px 10px 0px #ababab03;
+
+  box-shadow: -14px 36px 11px 0px #ababab00;
+}
+
+/* Responsive styles */
+
+@media (max-width: 1400px) {
+  .text-section {
+    margin-top: 50px;
+    width: 45%;
+
+    h1 {
+      font-size: 46px;
+    }
+  }
+
+  .traditional-para {
+    margin-bottom: 60px;
+
+    h2 {
+      font-size: 26px;
+    }
+    p {
+      font-size: 16px;
+    }
+  }
+
+  .traditional-way .traditional-heading h2 {
+    font-size: 30px;
+  }
+
+  .traditional-way .traditional-heading a {
+    font-size: 16px;
+  }
+
+  .footer .footer-links {
+    gap: 2%;
+  }
+
+  .pending-payment .who-is-getzPAID h2,
+  .pending-payment .traditional-para h2,
+  .why-choose-getzPAID .traditional-para h2 {
+    font-size: 44px;
+  }
+}
+
+@media (max-width: 1200px) {
+  footer .footer-links {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .sets-us .right-part ul .big-img .small-img {
+    width: 90px;
+  }
+
+  section {
+    margin-bottom: 50px;
+  }
+
+  .who-is-getzPAID + .cards {
+    max-width: 885px;
+  }
+
+  .sets-us {
+    height: auto;
+    position: static;
+    gap: 200px;
+  }
+
+  .sets-us-wrapper {
+    height: auto;
+  }
+
+  .pending-payment .who-is-getzPAID h2,
+  .pending-payment .traditional-para h2,
+  .why-choose-getzPAID .traditional-para h2 {
+    font-size: 40px;
+  }
+
+  footer .cp-right-sec {
+    flex-direction: column;
+    gap: 30px;
+
+    .cmt-logo {
+      text-align: left;
+    }
+  }
+
+  .footer .footer-links {
+    row-gap: 50px;
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .iPad-image-sequence {
@@ -236,5 +888,46 @@ header {
 
   .text-section {
     padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cards-list {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card-item {
+    height: 350px;
+  }
+
+  .image-text h2 {
+    font-size: 20px;
+  }
+
+  .image-text p {
+    font-size: 14px;
+  }
+
+  .card-back-content h2 {
+    font-size: 20px;
+  }
+
+  .card-description {
+    font-size: 14px;
+  }
+
+  .feature-item p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-item {
+    height: 300px;
+  }
+
+  .card-back-content {
+    padding: 20px 15px;
   }
 }
