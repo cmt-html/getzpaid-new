@@ -880,18 +880,124 @@ footer {
   }
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .iPad-image-sequence {
-    height: 50vh;
+@media (max-width: 1024px) {
+  .text-section h1 {
+    font-size: 40px;
+  }
+  .text-section p {
+    font-size: 16px;
+  }
+  .text-section a {
+    font-size: 14px;
   }
 
-  .text-section {
-    padding: 20px;
+  .pending-payment .who-is-getzPAID h2,
+  .pending-payment .traditional-para h2,
+  .why-choose-getzPAID .traditional-para h2 {
+    font-size: 36px;
+  }
+  footer .footer-links {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  footer .top-footer-image .btn-sec a {
+    font-size: 14px;
+    padding: 10px 15px;
   }
 }
 
+@media (max-width: 922px) {
+  footer .footer-links li h4,
+  footer .cp-right-sec .cmt-logo p,
+  footer .cp-right-sec .left-sec h4 {
+    font-size: 16px;
+  }
+  footer .footer-links li a {
+    font-size: 14px;
+  }
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
+  .iPad-image-sequence {
+    height: 100vh;
+  }
+
+  .text-section {
+    padding: 0px;
+
+    padding: 0px;
+    top: 5%;
+
+    h1 {
+      font-size: 30px;
+    }
+  }
+
+  .traditional-way .traditional-heading h2 {
+    font-size: 24px;
+  }
+
+  .traditional-way .traditional-heading a {
+    font-size: 14px;
+  }
+
+  .pending-payment .who-is-getzPAID h2,
+  .pending-payment .traditional-para h2,
+  .why-choose-getzPAID .traditional-para h2 {
+    font-size: 32px;
+  }
+
+  .getz-anim-wrapper .coin-sec {
+    bottom: 50px;
+    right: 15%;
+    max-width: 75px;
+  }
+  .who-is-getzPAID + .cards ul {
+    gap: 30px;
+  }
+  .sets-us .right-part ul li:nth-child(odd) {
+    top: 23px;
+  }
+
+  .cards {
+    padding: 0;
+  }
+
+  .sets-us .right-part ul .big-img .small-img {
+    left: -5%;
+  }
+
+  .sets-us {
+    .left-part {
+      margin-bottom: 200px;
+    }
+  }
+
+  .footer .footer-links {
+    gap: 8%;
+  }
+
+  .sets-us .right-part ul {
+    row-gap: 50px;
+    column-gap: 30px;
+  }
+
+  .why-choose-getzPAID ul .card-wrapper h2,
+  .why-choose-getzPAID ul .card-wrapper p {
+    font-size: 16px;
+  }
+
+  .who-is-getzPAID + .cards ul {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}
+
+// * {
+//   outline: 1px solid;
+// }
+
+@media (max-width: 767px) {
   .cards-list {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -913,13 +1019,72 @@ footer {
     font-size: 20px;
   }
 
-  .card-description {
+  .card-description,
+  .text-section p {
     font-size: 14px;
   }
 
   .feature-item p {
     font-size: 13px;
   }
+
+  .traditional-way .traditional-heading h2,
+  .know-more-btn {
+    font-size: 18px;
+  }
+
+  .text-section h1 {
+    font-size: 28px;
+  }
+
+  .pending-payment .who-is-getzPAID h2,
+  .pending-payment .traditional-para h2,
+  .why-choose-getzPAID .traditional-para h2 {
+    font-size: 28px;
+  }
+  .sets-us .left-part h3 {
+    font-size: 28px;
+  }
+  .sets-us .left-part h2 {
+    color: #323232;
+    font-size: 32px;
+    line-height: normal;
+  }
+
+  .sets-us .right-part ul {
+    grid-template-columns: repeat(auto-fill, minmax(156px, 1fr));
+  }
+
+  .sets-us-bg {
+    padding-block: 50px;
+  }
+
+  .footer .footer-links {
+    gap: 1;
+    row-gap: 50px;
+  }
+
+  .sets-us {
+    gap: 0px;
+    display: flex;
+    flex-direction: column;
+
+    .left-part {
+      margin-bottom: 70px;
+    }
+
+    .right-part ul {
+      display: flex;
+      flex-wrap: wrap;
+      li {
+        flex: 0 0 calc(50% - 15px);
+      }
+    }
+  }
+}
+
+* {
+  outline: 1px solid;
 }
 
 @media (max-width: 480px) {

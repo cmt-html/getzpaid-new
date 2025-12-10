@@ -980,38 +980,45 @@
 
 
     <script>
-
         setTimeout(() => {
 
+            const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+            const isMobile = window.matchMedia("(max-width: 767px)").matches;
 
-            const tl4 = gsap.timeline({
+            let tl4 = gsap.timeline({
                 scrollTrigger: {
                     trigger: ".sets-us-bg",
                     ease: "elastic.out(1)",
-                    duration: "1.5",
+                    duration: 1.5,
                     scrub: 2,
-                    // pin: true,
-                    start: "top 0%",
-                    end: "top -90%",
-                },
+                    start: isDesktop ? "top 0%" : "top 10%",
+                    end: isDesktop ? "top -90%" : "top -80%",
+                }
             });
 
-            tl4.to(".sets-us-bg .right-part", {
-                transform: "translateY(-60%)",
-            });
+            if (isDesktop) {
+                // DESKTOP
+                tl4.to(".sets-us-bg .right-part", {
+                    y: "-60%", // safer than transform
+                });
 
-
-
-            tl4.to(
-                ".right-part .small-img",
-                {
-                    scrub: 2,
+                tl4.to(".right-part .small-img", {
                     bottom: 100,
-                },
-                "<"
-            );
+                }, "<");
+
+            } else {
+                // MOBILE
+                tl4.to(".sets-us-bg .right-part", {
+                    y: "0%",
+                });
+
+                tl4.to(".right-part .small-img", {
+                    scrub: 2,
+                    bottom: 70,
+                }, "<");
+            }
+
         }, 1000);
-        // });
     </script>
 
 
