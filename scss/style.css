@@ -1060,10 +1060,6 @@ footer .cp-right-sec .cmt-logo p {
     flex: 0 0 calc(50% - 15px);
   }
 }
-* {
-  outline: 1px solid;
-}
-
 @media (max-width: 480px) {
   .card-item {
     height: 300px;
