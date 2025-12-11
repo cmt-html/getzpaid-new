@@ -365,7 +365,7 @@ header img {
 }
 .who-is-getzPAID + .cards ul {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 50px;
   padding: 0;
 }
@@ -929,6 +929,18 @@ footer .cp-right-sec .cmt-logo p {
   footer .footer-links li a {
     font-size: 14px;
   }
+  .traditional-way {
+    height: auto;
+    position: static;
+  }
+  .traditional-process-animation {
+    max-width: 300px;
+    margin: 50px auto;
+    width: 100%;
+  }
+  .traditional-way-track, .getz-paid-way-animation {
+    height: auto;
+  }
 }
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -1060,11 +1072,74 @@ footer .cp-right-sec .cmt-logo p {
     flex: 0 0 calc(50% - 15px);
   }
 }
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .card-item {
     height: 300px;
   }
   .card-back-content {
     padding: 20px 15px;
+  }
+  .ipad-anim {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    min-height: 100vh;
+  }
+  .ipad-anim .text-section {
+    position: static;
+    width: 100%;
+    margin: 0;
+    margin-top: 70px;
+  }
+  .ipad-anim .iPad-image-sequence {
+    height: 60vh;
+  }
+  .traditional-way .traditional-heading {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .pending-payment .who-is-getzPAID h2,
+  .pending-payment .traditional-para h2,
+  .why-choose-getzPAID .traditional-para h2 {
+    font-size: 24px;
+  }
+  .traditional-para br {
+    display: none;
+  }
+  .who-is-getzPAID .traditional-para h2 {
+    font-size: 24px;
+    line-height: 1.22;
+  }
+  .sets-us .left-part h3 {
+    font-size: 24px;
+  }
+  .sets-us .left-part h2 {
+    font-size: 28px;
+  }
+  .why-choose-getzPAID {
+    margin-bottom: 130px;
+  }
+  .container {
+    padding: 0 15px;
+  }
+  footer .top-footer-image .btn-sec {
+    position: absolute;
+    right: initial;
+    left: 0;
+    bottom: -104%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .why-choose-getzPAID ul {
+    gap: 40px;
+  }
+  .why-choose-getzPAID ul .card-wrapper img {
+    max-width: 30px;
+  }
+  .sets-us .right-part ul .big-img .small-img {
+    width: 60px;
   }
 }/*# sourceMappingURL=style.css.map */

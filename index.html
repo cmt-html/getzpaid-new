@@ -746,7 +746,12 @@
     <script>
         $(document).ready(function () {
             // gsap.registerPlugin(ScrollTrigger);
-            $('#traditional-way').load('/images/svg/traditional-way.html', function () {
+
+            const isDesktop = window.matchMedia("(min-width:992px)").matches;
+            const isMobile = window.matchMedia("(max-width:992px)").matches;
+
+
+            $('#traditional-way').load(isDesktop ? '/images/svg/traditional-way.html' : '/images/svg/traditional-way-mobile.html', function () {
 
                 // Wait slightly for DOM render
                 setTimeout(() => {
@@ -761,10 +766,12 @@
 
                     const length = traditionalLine.getTotalLength();
 
+                    console.log(length)
+
                     // 2. Set initial Line State
                     gsap.set(traditionalLine, {
                         strokeDasharray: length,
-                        strokeDashoffset: length
+                        strokeDashoffset: length 
                     });
 
                     // 3. Set initial Text/Icon State
@@ -781,7 +788,7 @@
                     const tl = gsap.timeline({
                         scrollTrigger: {
                             trigger: ".traditional-way-track",
-                            scroller: "body",
+                            // scroller: "body",
                             start: "top top", // Start when top of section hits top of viewport
                             // FIX: Pin the track so it stays on screen while we scroll
                             // pin: true,
@@ -800,7 +807,7 @@
                     // "Bounce" looks glitchy on scroll. "Back" gives a smooth pop.
 
                     // --- STEP 1 ---
-                    tl.to(traditionalLine, { strokeDashoffset: length / 1.2 })
+                    tl.to(traditionalLine, { strokeDashoffset: length / 1.2})
                         .to(".text-one", { scale: 1, opacity: 1, ease: "back.out(0.8)", duration: 0.5 }, ">")
                         .to(".icon-one", { stroke: "#65ba97" }, "<")
                         .to(".icon-one.fill-disabled-color", { fill: "#65ba97" }, "<");
@@ -832,7 +839,7 @@
                         .to(".icon-5.fill-disabled-color", { fill: "#598ed4" }, "<")
                         .to("#traditional-way .arrow-end", { stroke: '#26579b' }, "<");
 
-                }, 200);
+                }, 500);
 
             });
 
@@ -1014,7 +1021,7 @@
 
                 tl4.to(".right-part .small-img", {
                     scrub: 2,
-                    bottom: 70,
+                    bottom: 50,
                 }, "<");
             }
 
