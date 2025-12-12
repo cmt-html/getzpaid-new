@@ -926,7 +926,9 @@ footer {
     width: 100%;
   }
 
-  .traditional-way-track, .getz-paid-way-animation {
+  .traditional-way-track,
+  .getz-paid-way-animation,
+  #getz-paid-way-svg svg {
     height: auto;
   }
 }

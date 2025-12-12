@@ -843,7 +843,7 @@
 
             });
 
-            $('#getz-paid-way-svg').load('/images/svg/getz-paid-way.html', function () {
+            $('#getz-paid-way-svg').load(isDesktop? '/images/svg/getz-paid-way.html': '/images/svg/getz-paid-way-mobile.html' , function () {
                 setTimeout(() => {
 
                     // 1. Get the line and length

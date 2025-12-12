@@ -938,7 +938,9 @@ footer .cp-right-sec .cmt-logo p {
     margin: 50px auto;
     width: 100%;
   }
-  .traditional-way-track, .getz-paid-way-animation {
+  .traditional-way-track,
+  .getz-paid-way-animation,
+  #getz-paid-way-svg svg {
     height: auto;
   }
 }
