@@ -258,7 +258,7 @@ header img {
 .traditional-way {
   height: calc(100vh - 150px);
   position: sticky;
-  top: 100px;
+  top: 150px;
   left: 0;
   width: 100%;
 }
@@ -617,7 +617,7 @@ section {
   gap: 60px;
   height: calc(100vh - 150px);
   position: sticky;
-  top: 150px;
+  top: 120px;
 }
 .sets-us .left-part h3 {
   color: #0d9161;

@@ -757,7 +757,6 @@
             const isDesktop = window.matchMedia("(min-width:992px)").matches;
             const isMobile = window.matchMedia("(max-width:992px)").matches;
 
-            console.log(isDesktop, isMobile, "imran")
 
 
             $('#traditional-way').load(isDesktop ? '/images/svg/traditional-way.html' : '/images/svg/traditional-way-mobile.html', function () {
@@ -797,12 +796,12 @@
                         scrollTrigger: {
                             trigger: ".traditional-way-track",
                             // scroller: "body",
-                            start: "top top", // Start when top of section hits top of viewport
+                            start: isDesktop ? "top top" : "top center", // Start when top of section hits top of viewport
                             // FIX: Pin the track so it stays on screen while we scroll
                             // pin: true,
                             // FIX: This adds 4000px of "virtual scroll" space. 
                             // Increase this number (e.g., 5000 or 6000) to make the animation SLOWER.
-                            end: "bottom bottom",
+                            end: isDesktop ? "bottom +=1500px" : "bottom bottom",
                             scrub: 2,
                             invalidateOnRefresh: true
                         },
@@ -931,12 +930,12 @@
                         scrollTrigger: {
                             trigger: ".getz-paid-way-animation",
                             scroller: "body",
-                            start: "top top", // Start when top of section hits top of viewport
+                            start: isDesktop ? "top top" : "top center", // Start when top of section hits top of viewport
                             // FIX: Pin the track so it stays on screen while we scroll
                             // pin: true,
                             // FIX: This adds 4000px of "virtual scroll" space. 
                             // Increase this number (e.g., 5000 or 6000) to make the animation SLOWER.
-                            end: "bottom bottom",
+                            end: isDesktop ? "bottom +=1500px" : "bottom bottom",
                             scrub: 2,
                             invalidateOnRefresh: true
                         },
@@ -1386,16 +1385,16 @@
             transition: all 0.2s ease;
         }
         
-        .cursor-ring {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border: 2px solid rgba(102, 126, 234, 0.3);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: all 0.15s ease-out;
-            background: transparent;
-        }
+        // .cursor-ring {
+        //     position: absolute;
+        //     width: 40px;
+        //     height: 40px;
+        //     border: 2px solid rgba(102, 126, 234, 0.3);
+        //     border-radius: 50%;
+        //     transform: translate(-50%, -50%);
+        //     transition: all 0.15s ease-out;
+        //     background: transparent;
+        // }
         
         /* Cursor states */
         .cursor-hover .cursor-path {
