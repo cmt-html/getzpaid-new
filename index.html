@@ -478,7 +478,7 @@
 
                         </li>
 
-                        <!-- <li>
+                        <li>
                             <h4>App</h4>
                             <div class="social-icons">
                                 <a href="#"><img src="/images/google-app.png" width="46px" alt=""></a>
@@ -486,7 +486,7 @@
                                 <a href="#"><img src="/images/play.png" alt="" width="46px"></a>
                             </div>
 
-                        </li> -->
+                        </li>
                     </ul>
 
                     <div class="cp-right-sec">
@@ -511,45 +511,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
-    <!-- Lenis Smooth Scrolling -->
-    <!-- <script src="https://unpkg.com/lenis@1.1.4/dist/lenis.min.js"></script> -->
     <script>  gsap.registerPlugin(ScrollTrigger, SplitText); </script>
 
     <script>
-
-        // let lenis;
-
-        // function initLenis() {
-        //     if (typeof Lenis !== 'undefined') {
-        //         lenis = new Lenis({
-        //             duration: 1.2,
-        //             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing
-        //             smoothWheel: true,
-        //             smoothTouch: false,
-        //             touchMultiplier: 2,
-        //         });
-
-        //         function raf(time) {
-        //             lenis.raf(time);
-        //             requestAnimationFrame(raf);
-        //         }
-
-        //         requestAnimationFrame(raf);
-
-        //         // Update ScrollTrigger on Lenis scroll
-        //         lenis.on('scroll', ScrollTrigger.update);
-
-        //         // Sync GSAP ScrollTrigger with Lenis
-        //         gsap.ticker.add((time) => {
-        //             lenis.raf(time * 1000);
-        //         });
-
-        //         // Remove default scroll behavior
-        //         gsap.ticker.remove(gsap.updateRoot);
-        //     }
-        // }
-
-
 
         window.addEventListener("DOMContentLoaded", () => {
 
@@ -586,9 +550,11 @@
     </script>
 
 
-    <!-- <script>
+    <script>
         // Register ScrollTrigger plugin
         // gsap.registerPlugin(ScrollTrigger);
+        const isDesktop = window.matchMedia("(min-width:992px)").matches;
+
 
         const canvas = document.querySelector('.canvas');
         const context = canvas.getContext('2d');
@@ -714,7 +680,7 @@
                 scrollTrigger: {
                     trigger: ".ipad-anim",
                     start: "top top",
-                    end: "bottom bottom",
+                    end: isDesktop ? "bottom bottom" : "+=50%",
                     scrub: 0.3,
                     invalidateOnRefresh: true
                 }
@@ -775,134 +741,9 @@
 
         // Start the application
         init();
-    </script> -->
-
-    <script>
-        gsap.registerPlugin(ScrollTrigger);
-        const isDesktop = window.matchMedia("(min-width:992px)").matches;
-
-        const canvas = document.querySelector(".canvas");
-        const ctx = canvas.getContext("2d");
-        const loading = document.querySelector(".loading");
-
-        const frame = {
-            current: 0,
-            max: 40
-        };
-
-        const images = [];
-        let loaded = 0;
-
-        /* --------------------------------
-           CANVAS SIZE (RETINA SAFE)
-        -------------------------------- */
-        function resizeCanvas() {
-            const wrapper = document.querySelector(".iPad-image-sequence");
-            const dpr = window.devicePixelRatio || 1;
-
-            const width = wrapper.clientWidth;
-            const height = wrapper.clientHeight;
-
-            canvas.width = width * dpr;
-            canvas.height = height * dpr;
-
-            canvas.style.width = width + "px";
-            canvas.style.height = height + "px";
-
-            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        }
-
-        /* --------------------------------
-           PRELOAD IMAGES (iOS SAFE)
-        -------------------------------- */
-        function preloadImages() {
-            for (let i = 0; i <= frame.max; i++) {
-                const img = new Image();
-                img.src = `/images/ipad/${String(i).padStart(4, "0")}.png`;
-
-                img.onload = async () => {
-                    if (img.decode) await img.decode();
-                    loaded++;
-                    if (loaded === frame.max + 1) init();
-                };
-
-                images.push(img);
-            }
-        }
-
-        /* --------------------------------
-           DRAW FRAME
-        -------------------------------- */
-        function draw(index) {
-            const img = images[index];
-            if (!img) return;
-
-            resizeCanvas();
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            const cw = canvas.width / (window.devicePixelRatio || 1);
-            const ch = canvas.height / (window.devicePixelRatio || 1);
-
-            const ir = img.width / img.height;
-            const cr = cw / ch;
-
-            let w, h, x, y;
-
-            if (ir > cr) {
-                w = cw;
-                h = w / ir;
-                x = 0;
-                y = (ch - h) / 2;
-            } else {
-                h = ch;
-                w = h * ir;
-                x = (cw - w) / 2;
-                y = 0;
-            }
-
-            ctx.drawImage(img, x, y, w, h);
-        }
-
-        /* --------------------------------
-           SCROLL ANIMATION
-        -------------------------------- */
-        function init() {
-            loading.style.display = "none";
-            draw(0);
-
-            ScrollTrigger.create({
-                trigger: ".ipad-anim",
-                start: "top top",
-                end: isDesktop ? "bottom bottom" : "+=50%",
-                scrub: 0.4,
-                onUpdate: self => {
-                    frame.current = Math.round(self.progress * frame.max);
-                    draw(frame.current);
-                },
-                invalidateOnRefresh: true
-            });
-
-            ScrollTrigger.refresh();
-        }
-
-        /* --------------------------------
-           RESIZE (iOS SAFE)
-        -------------------------------- */
-        let resizeTimeout;
-        window.addEventListener("resize", () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                draw(frame.current);
-                ScrollTrigger.refresh();
-            }, 300);
-        });
-
-        /* --------------------------------
-           START
-        -------------------------------- */
-        resizeCanvas();
-        preloadImages();
     </script>
+
+
 
     <script>
         $(document).ready(function () {
@@ -927,7 +768,7 @@
 
                     const length = traditionalLine.getTotalLength();
 
-                    // console.log(length)
+                    console.log(length)
 
                     // 2. Set initial Line State
                     gsap.set(traditionalLine, {
