@@ -1097,6 +1097,12 @@ footer {
       }
     }
   }
+
+  .getz-anim-wrapper .coin-sec {
+    bottom: 20px;
+    right: -15px;
+    max-width: 50px;
+  }
 }
 
 // * {
@@ -1190,5 +1196,9 @@ footer {
 
   .sets-us .right-part ul .big-img .small-img {
     width: 60px;
+  }
+
+  .traditional-para {
+    margin-bottom: 40px;
   }
 }

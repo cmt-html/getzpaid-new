@@ -1073,6 +1073,11 @@ footer .cp-right-sec .cmt-logo p {
   .sets-us .right-part ul li {
     flex: 0 0 calc(50% - 15px);
   }
+  .getz-anim-wrapper .coin-sec {
+    bottom: 20px;
+    right: -15px;
+    max-width: 50px;
+  }
 }
 @media (max-width: 600px) {
   .card-item {
@@ -1143,5 +1148,8 @@ footer .cp-right-sec .cmt-logo p {
   }
   .sets-us .right-part ul .big-img .small-img {
     width: 60px;
+  }
+  .traditional-para {
+    margin-bottom: 40px;
   }
 }/*# sourceMappingURL=style.css.map */
