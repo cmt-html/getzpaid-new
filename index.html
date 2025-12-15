@@ -15,6 +15,7 @@
         <img src="/images/header.png" alt="">
     </header>
     <main>
+        <div id="headerHeight">&nbsp;</div>
         <section>
             <div class="container">
                 <div class="ipad-anim">
@@ -478,7 +479,7 @@
 
                         </li>
 
-                        <li>
+                        <!-- <li>
                             <h4>App</h4>
                             <div class="social-icons">
                                 <a href="#"><img src="/images/google-app.png" width="46px" alt=""></a>
@@ -486,7 +487,7 @@
                                 <a href="#"><img src="/images/play.png" alt="" width="46px"></a>
                             </div>
 
-                        </li>
+                        </li> -->
                     </ul>
 
                     <div class="cp-right-sec">
@@ -517,6 +518,10 @@
 
         window.addEventListener("DOMContentLoaded", () => {
 
+            const headerHeight = $("header").outerHeight();
+            $("#headerHeight").css({
+                height: headerHeight
+            });
             setTimeout(() => {
                 const secondText = new SplitText(".text-animation", {
                     type: "words, chars",
@@ -752,6 +757,8 @@
             const isDesktop = window.matchMedia("(min-width:992px)").matches;
             const isMobile = window.matchMedia("(max-width:992px)").matches;
 
+            console.log(isDesktop, isMobile, "imran")
+
 
             $('#traditional-way').load(isDesktop ? '/images/svg/traditional-way.html' : '/images/svg/traditional-way-mobile.html', function () {
 
@@ -768,7 +775,6 @@
 
                     const length = traditionalLine.getTotalLength();
 
-                    console.log(length)
 
                     // 2. Set initial Line State
                     gsap.set(traditionalLine, {
