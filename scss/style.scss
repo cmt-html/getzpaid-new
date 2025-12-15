@@ -467,6 +467,7 @@ section {
   text-decoration: none;
   color: white;
   transition: transform 0.3s ease;
+  padding: 20px 0;
 }
 
 .btn-view-all:hover {
@@ -480,6 +481,7 @@ section {
   animation: float 3s ease-in-out infinite;
   border: 1px solid #fff;
   border-radius: 100px;
+  overflow: visible;
 }
 
 .circle_with_arrow img {
@@ -801,7 +803,6 @@ html {
 .loading {
   display: none;
 }
-
 
 @media (max-width: 1400px) {
   .text-section {
