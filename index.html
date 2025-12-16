@@ -32,7 +32,7 @@
                             GetzPAID – your online platform to hassle-free and priority-driven payment collections. Now,
                             everyone can easily get paid On Time, Every Time.</p>
 
-                        <a href="#">Sign Up Now!</a>
+                        <a href="#" class="cta-btn">Sign Up Now!</a>
                     </div>
                 </div>
             </div>
@@ -478,21 +478,11 @@
                             </div>
 
                         </li>
-
-                        <!-- <li>
-                            <h4>App</h4>
-                            <div class="social-icons">
-                                <a href="#"><img src="/images/google-app.png" width="46px" alt=""></a>
-
-                                <a href="#"><img src="/images/play.png" alt="" width="46px"></a>
-                            </div>
-
-                        </li> -->
                     </ul>
 
                     <div class="cp-right-sec">
                         <div class="left-sec">
-                            <h4>© 2026 GetzPaid. All rights reserved.</h4>
+                            <h4>© 2025 GetzPaid. All rights reserved.</h4>
                             <p> GetzPaid & is powered by National Automated Clearing House (NACH) a product of the
                                 National Payments Corporation of India (NPCI). </p>
                         </div>
@@ -514,250 +504,694 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
     <script>  gsap.registerPlugin(ScrollTrigger, SplitText); </script>
 
+    <!-- Enhanced initial animation with fixes -->
     <script>
+        // ---------- INIT ----------
+        document.addEventListener("DOMContentLoaded", () => {
+            initOnce();
+            initOnResize();
+        });
 
-        window.addEventListener("DOMContentLoaded", () => {
+        // ---------- FUNCTIONS ----------
 
-            const headerHeight = $("header").outerHeight();
-            $("#headerHeight").css({
-                height: headerHeight
+        // Run once only
+        function initOnce() {
+            initAnimations();
+            createThemedCursor();
+            addScrollToTop();
+            initSmoothScroll();
+
+            // Refresh after fonts/images/layout settle
+            window.addEventListener("load", () => {
+                ScrollTrigger.refresh();
             });
+        }
+
+        // Resize-safe logic
+        function initOnResize() {
+            let resizeTimer;
+
+            window.addEventListener("resize", () => {
+                clearTimeout(resizeTimer);
+
+                resizeTimer = setTimeout(() => {
+                    handleResize();
+                }, 250); // debounce
+            });
+        }
+
+        // Only resize-specific logic
+        function handleResize() {
+            // Kill old ScrollTriggers safely
+            ScrollTrigger.getAll().forEach(st => st.kill());
+
+            // Re-init only what depends on viewport size
+            initAnimations();
+
+            // Refresh GSAP layout
+            ScrollTrigger.refresh();
+        }
+
+
+
+        function initAnimations() {
+            // Enhanced fade-in animation on page load
+            window.addEventListener('load', function () {
+                // Ensure all elements are visible by default
+                gsap.set("header, main > section, footer", {
+                    opacity: 1,
+                    visibility: 'visible',
+                    display: 'block'
+                });
+
+                // Create a master timeline for page load animations
+                const pageLoadTl = gsap.timeline({
+                    defaults: {
+                        duration: 1.2,
+                        ease: "power3.out"
+                    }
+                });
+
+                // Staggered entrance animation for header and first section
+                pageLoadTl
+                    .fromTo("header",
+                        { opacity: 0, y: -30 },
+                        { opacity: 1, y: 0, duration: 1, ease: "back.out(1.2)" },
+                        0.2
+                    )
+                    .fromTo(".ipad-anim",
+                        { opacity: 0, scale: 0.95 },
+                        { opacity: 1, scale: 1, duration: 1.4, ease: "elastic.out(1, 0.5)" },
+                        0.4
+                    )
+                    .fromTo(".text-section h1",
+                        { opacity: 0, y: 40, rotationX: -15 },
+                        { opacity: 1, y: 0, rotationX: 0, duration: 1.3, ease: "power3.out" },
+                        0.6
+                    )
+                    .fromTo(".text-section p",
+                        { opacity: 0, x: -30 },
+                        { opacity: 1, x: 0, duration: 1.2 },
+                        0.8
+                    )
+                    .fromTo(".text-section .cta-btn",
+                        { opacity: 0, scale: 0.8 },
+                        {
+                            opacity: 1,
+                            scale: 1,
+                            duration: 0.8,
+                            ease: "back.out(1.5)",
+                            boxShadow: "0 10px 30px rgba(0,0,0,0.2)"
+                        },
+                        1
+                    );
+
+                // Animate remaining sections with scroll triggers
+                gsap.utils.toArray("main > section:not(:first-of-type)").forEach((section, index) => {
+                    ScrollTrigger.create({
+                        trigger: section,
+                        start: "top 80%",
+                        end: "bottom 20%",
+                        toggleActions: "play none none reverse",
+                        once: true,
+                        onEnter: () => {
+                            gsap.to(section, {
+                                opacity: 1,
+                                y: 0,
+                                scale: 1,
+                                rotationX: 0,
+                                duration: 1.2,
+                                ease: "power3.out"
+                            });
+
+                            // Special animations for cards section
+                            if (section.querySelector('.cards-list')) {
+                                gsap.utils.toArray(".card-item", section).forEach((card, i) => {
+                                    gsap.fromTo(card,
+                                        {
+                                            opacity: 0,
+                                            y: 60,
+                                            rotationY: -10
+                                        },
+                                        {
+                                            opacity: 1,
+                                            y: 0,
+                                            rotationY: 0,
+                                            duration: 0.8,
+                                            delay: i * 0.15,
+                                            ease: "back.out(1.2)"
+                                        }
+                                    );
+                                });
+                            }
+                        }
+                    });
+                });
+
+                // Animate footer
+                ScrollTrigger.create({
+                    trigger: "footer",
+                    start: "top 90%",
+                    once: true,
+                    onEnter: () => {
+                        gsap.fromTo("footer",
+                            { opacity: 0, y: 50 },
+                            {
+                                opacity: 1,
+                                y: 0,
+                                duration: 1,
+                                ease: "power3.out"
+                            }
+                        );
+                    }
+                });
+
+                // Add hover effects
+                addHoverEffects();
+            });
+        }
+
+        function createThemedCursor() {
+            // Create cursor element
+            const cursor = document.createElement('div');
+            cursor.id = 'custom-cursor';
+            cursor.innerHTML = `
+                <div class="cursor-main">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="cursor-svg">
+                        <path d="M4.5.79v22.42l6.56-6.57h9.29L4.5.79z" class="cursor-path"/>
+                    </svg>
+                </div>
+                <div class="cursor-ring"></div>
+            `;
+            document.body.appendChild(cursor);
+
+            // Add CSS for custom cursor with new colors
+            const cursorStyle = document.createElement('style');
+            cursorStyle.textContent = `
+                #custom-cursor {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    z-index: 99999;
+                    pointer-events: none;
+                    opacity: 0;
+                    transition: opacity 0.3s;
+                    mix-blend-mode: difference;
+                }
+                
+                .cursor-main {
+                    position: absolute;
+                    transform: translate(-50%, -50%);
+                    filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.5));
+                    transition: transform 0.2s ease;
+                }
+                
+                .cursor-svg {
+                    width: 24px;
+                    height: 24px;
+                    transition: all 0.2s ease;
+                }
+                
+                .cursor-path {
+                    fill: #F26522 !important;
+                    stroke: #ffffff;
+                    stroke-width: 0.5;
+                    transition: all 0.2s ease;
+                }
+                
+                // .cursor-ring {
+                //     position: absolute;
+                //     width: 40px;
+                //     height: 40px;
+                //     border: 2px solid rgba(242, 101, 34, 0.3);
+                //     border-radius: 50%;
+                //     transform: translate(-50%, -50%);
+                //     transition: all 0.15s ease-out;
+                //     background: transparent;
+                // }
+                
+                /* Cursor states */
+                .cursor-hover .cursor-path {
+                    fill: #F26522;
+                    stroke: #ffffff;
+                    filter: drop-shadow(0 0 3px rgba(242, 101, 34, 0.5));
+                }
+                
+                .cursor-hover .cursor-ring {
+                    width: 50px;
+                    height: 50px;
+                    border-color: rgba(242, 101, 34, 0.4);
+                    border-width: 2px;
+                }
+                
+                .cursor-click .cursor-path {
+                    fill: #F26522;
+                    stroke: #ffffff;
+                    transform: scale(0.9);
+                }
+                
+                .cursor-click .cursor-ring {
+                    width: 45px;
+                    height: 45px;
+                    border-color: rgba(242, 101, 34, 0.5);
+                    transform: translate(-50%, -50%) scale(0.9);
+                }
+                
+                /* Hide default cursor on desktop */
+                @media (min-width: 769px) {
+                    body, a, button, .flip-card, .btn-view-all, input, select, textarea {
+                        cursor: none !important;
+                    }
+                }
+                
+                /* Show custom cursor only on desktop */
+                @media (max-width: 768px) {
+                    #custom-cursor {
+                        display: none;
+                    }
+                    body, a, button, .flip-card, .btn-view-all, input, select, textarea {
+                        cursor: auto !important;
+                    }
+                }
+            `;
+            document.head.appendChild(cursorStyle);
+
+            // Mouse movement tracking
+            let mouseX = 0;
+            let mouseY = 0;
+            let cursorX = 0;
+            let cursorY = 0;
+            let ringX = 0;
+            let ringY = 0;
+
+            const cursorMain = cursor.querySelector('.cursor-main');
+            const cursorRing = cursor.querySelector('.cursor-ring');
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                if (cursor.style.opacity === '0') {
+                    cursor.style.opacity = '1';
+                }
+            });
+
+            function animateCursor() {
+                cursorX = mouseX;
+                cursorY = mouseY;
+                ringX += (mouseX - ringX) * 0.15;
+                ringY += (mouseY - ringY) * 0.15;
+
+                cursorMain.style.left = cursorX + 'px';
+                cursorMain.style.top = cursorY + 'px';
+                cursorRing.style.left = ringX + 'px';
+                cursorRing.style.top = ringY + 'px';
+
+                requestAnimationFrame(animateCursor);
+            }
+
+            setTimeout(() => animateCursor(), 100);
+
+            // Hover effects
+            const hoverElements = document.querySelectorAll('a, button, .flip-card, .btn-view-all, .card-item, input, select, textarea');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('cursor-hover');
+                    if (el.tagName === 'A' || el.classList.contains('btn-view-all') || el.tagName === 'BUTTON') {
+                        cursor.classList.add('cursor-link');
+                    }
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('cursor-hover');
+                    cursor.classList.remove('cursor-link');
+                });
+            });
+
+            document.addEventListener('mousedown', () => cursor.classList.add('cursor-click'));
+            document.addEventListener('mouseup', () => cursor.classList.remove('cursor-click'));
+            document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
+            document.addEventListener('mouseenter', () => cursor.style.opacity = '1');
+        }
+
+        function addScrollToTop() {
+            const scrollIndicator = document.createElement('div');
+            scrollIndicator.innerHTML = `
+                <div class="scroll-to-top" style="
+                    
+                ">
+                    <i class="fas fa-chevron-up"></i>
+                </div>
+            `;
+            document.body.appendChild(scrollIndicator);
+
+            const scrollToTopBtn = scrollIndicator.querySelector('.scroll-to-top');
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 500) {
+                    gsap.to(scrollToTopBtn, {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.5,
+                        ease: "power2.out"
+                    });
+                } else {
+                    gsap.to(scrollToTopBtn, {
+                        opacity: 0,
+                        y: 20,
+                        duration: 0.5,
+                        ease: "power2.out"
+                    });
+                }
+            });
+        }
+
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#' || targetId === '#!') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        function addHoverEffects() {
+            const buttons = document.querySelectorAll('a, .btn-view-all');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', () => {
+                    gsap.to(button, {
+                        scale: 1.05,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+
+                button.addEventListener('mouseleave', () => {
+                    gsap.to(button, {
+                        scale: 1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+            });
+        }
+
+        function setupResizeListener() {
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    ScrollTrigger.refresh();
+                }, 250);
+            });
+        }
+
+        // Add global styles with new color scheme
+        const globalStyle = document.createElement('style');
+        globalStyle.textContent = `
+            * {
+                scroll-behavior: smooth;
+            }
+            
+            /* Scrollbar styling with new gradient */
+            ::-webkit-scrollbar {
+                width: 10px;
+            }
+            
+            ::-webkit-scrollbar-track {
+                background: #f1f1f1;
+            }
+            
+            ::-webkit-scrollbar-thumb {
+                background: linear-gradient(135deg, #6784F1 0%, #1C3180 100%);
+                border-radius: 5px;
+            }
+            
+            ::-webkit-scrollbar-thumb:hover {
+                background: linear-gradient(135deg, #5a67d8 0%, #152a73 100%);
+            }
+            
+            /* Button effects with new gradient */
+            .text-section .cta-btn,
+            .fitll-btn,
+            .btn-sec a,
+            .btn-view-all {
+                position: relative;
+                overflow: hidden;
+                z-index: 1;
+            }
+            
+            .text-section .cta-btn:hover::after,
+            
+            .fitll-btn:hover::after,
+            .btn-sec a:hover::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, #6784F1 0%, #1C3180 100%);
+                z-index: -1;
+                opacity: 0.1;
+                transition: opacity 0.3s ease;
+            }
+            
+            /* Enhanced button hover effects */
+            .text-section .cta-btn {
+                background: linear-gradient(135deg, #6784F1 0%, #1C3180 100%);
+                color: white;
+                padding: 15px 40px;
+                border-radius: 30px;
+                text-decoration: none;
+                display: inline-block;
+                font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                transition: all 0.3s ease;
+                border: none;
+                box-shadow: 0 5px 15px rgba(103, 132, 241, 0.3);
+            }
+            
+            .text-section .cta-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 25px rgba(103, 132, 241, 0.4);
+            }
+            
+            /* Pulse animation for CTA with new colors */
+            @keyframes pulse {
+                0% { box-shadow: 0 0 0 0 rgba(103, 132, 241, 0.4); }
+                70% { box-shadow: 0 0 0 10px rgba(103, 132, 241, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(103, 132, 241, 0); }
+            }
+            
+            .text-section .cta-btn {
+                animation: pulse 2s infinite;
+            }
+            
+            /* Ensure all sections are visible */
+            main > section {
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+            
+            footer {
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+            
+            /* Smooth transitions */
+            .card-item, .flip-card {
+                transition: all 0.3s ease;
+            }
+            
+            /* Fix for image sequences */
+            .canvas {
+                display: block;
+                margin: 0 auto;
+                max-width: 100%;
+                height: auto;
+            }
+        `;
+        document.head.appendChild(globalStyle);
+    </script>
+
+    <script>
+        // Fixed iPad animation sequence
+        window.addEventListener("DOMContentLoaded", () => {
+            const headerHeight = document.querySelector("header").offsetHeight;
+            document.getElementById("headerHeight").style.height = headerHeight + "px";
+
+            // Text animation
             setTimeout(() => {
                 const secondText = new SplitText(".text-animation", {
                     type: "words, chars",
                 });
 
-                // GSAP Animation
                 gsap.fromTo(
                     secondText.chars,
-                    { color: "#999999" },   // FROM state
+                    { color: "#999999" },
                     {
-                        color: "#323232",   // TO state
+                        color: "#323232",
                         stagger: 0.1,
                         duration: 0.5,
                         scrollTrigger: {
-                            trigger: ".text-animation",  // ✅ correct trigger
-                            start: "top 90%",            // start when text enters viewport
-                            end: "bottom 50%",           // smoother end point
+                            trigger: ".text-animation",
+                            start: "top 90%",
+                            end: "bottom 50%",
                             scrub: 2,
                             markers: false,
                         }
                     }
                 );
-
-
-            }, 1000);
-
+            }, 1500);
         });
 
+        // iPad image sequence animation
+        (function initiPadAnimation() {
+            const canvas = document.querySelector('.canvas');
+            const context = canvas.getContext('2d');
+            const loadingElement = document.querySelector('.loading');
 
+            const frame = {
+                currentIndex: 0,
+                maxIndex: 40
+            };
 
-    </script>
+            const images = [];
+            let imagesLoaded = 0;
 
-
-    <script>
-        // Register ScrollTrigger plugin
-        // gsap.registerPlugin(ScrollTrigger);
-        const isDesktop = window.matchMedia("(min-width:992px)").matches;
-
-
-        const canvas = document.querySelector('.canvas');
-        const context = canvas.getContext('2d');
-        const loadingElement = document.querySelector('.loading');
-
-        const frame = {
-            currentIndex: 0,
-            maxIndex: 40
-        };
-
-        const images = [];
-        let imagesLoaded = 0;
-        let imagesFailed = 0;
-
-        // Set canvas dimensions
-        function setCanvasSize() {
-            const container = document.querySelector('.iPad-image-sequence');
-            if (container) {
-                canvas.width = container.clientWidth;
-                canvas.height = container.clientHeight;
-            } else {
-                // Fallback to parent container or window
-                const parent = canvas.parentElement;
-                canvas.width = parent.clientWidth;
-                canvas.height = parent.clientHeight;
-            }
-        }
-
-        // Preload all images
-        function preloadImages() {
-            for (let i = 0; i <= frame.maxIndex; i++) {
-                const imageUrl = `images/ipad/${i.toString().padStart(4, '0')}.png`;
-                const img = new Image();
-                img.src = imageUrl;
-
-                img.onload = function () {
-                    imagesLoaded++;
-                    checkAllImagesLoaded();
-                };
-
-                img.onerror = function () {
-                    console.error(`Failed to load image: ${imageUrl}`);
-                    imagesFailed++;
-                    checkAllImagesLoaded();
-                };
-
-                images.push(img);
-            }
-        }
-
-        // Check if all images are loaded (successfully or failed)
-        function checkAllImagesLoaded() {
-            const totalAttempted = imagesLoaded + imagesFailed;
-            if (totalAttempted === frame.maxIndex + 1) {
-                if (imagesFailed > 0) {
-                    console.warn(`${imagesFailed} images failed to load`);
+            function setCanvasSize() {
+                const container = document.querySelector('.iPad-image-sequence');
+                if (container) {
+                    canvas.width = container.clientWidth;
+                    canvas.height = container.clientHeight;
                 }
-
-                // Hide loading indicator
-                if (loadingElement) {
-                    loadingElement.style.display = 'none';
-                }
-
-                // Start with first frame
-                loadImage(frame.currentIndex);
-
-                // Initialize animation
-                startAnimation();
             }
-        }
 
-        // Load and display a specific frame - IMPROVED CENTERING
-        function loadImage(index) {
-            if (index >= 0 && index <= frame.maxIndex && images[index]) {
-                const img = images[index];
+            function preloadImages() {
+                for (let i = 0; i <= frame.maxIndex; i++) {
+                    const imageUrl = `images/ipad/${i.toString().padStart(4, '0')}.png`;
+                    const img = new Image();
+                    img.src = imageUrl;
 
-                // Set canvas size based on container
-                setCanvasSize();
+                    img.onload = function () {
+                        imagesLoaded++;
+                        if (imagesLoaded === frame.maxIndex + 1) {
+                            if (loadingElement) {
+                                loadingElement.style.display = 'none';
+                            }
+                            loadImage(frame.currentIndex);
+                            startAnimation();
+                        }
+                    };
 
-                // Clear canvas first
-                context.clearRect(0, 0, canvas.width, canvas.height);
+                    img.onerror = function () {
+                        console.warn(`Failed to load image: ${imageUrl}`);
+                        imagesLoaded++;
+                        if (imagesLoaded === frame.maxIndex + 1) {
+                            if (loadingElement) {
+                                loadingElement.style.display = 'none';
+                            }
+                            startAnimation();
+                        }
+                    };
 
-                // If image is not fully loaded yet, wait
-                if (!img.complete || img.naturalWidth === 0) {
-                    return;
+                    images.push(img);
                 }
-
-                // Calculate scaling to maintain aspect ratio
-                const imgAspectRatio = img.width / img.height;
-                const canvasAspectRatio = canvas.width / canvas.height;
-
-                let renderableWidth, renderableHeight, xStart, yStart;
-
-                // If image's aspect ratio is larger than canvas's aspect ratio,
-                // image must be fitted to width, otherwise fitted to height
-                if (imgAspectRatio > canvasAspectRatio) {
-                    renderableWidth = canvas.width;
-                    renderableHeight = canvas.width / imgAspectRatio;
-                    xStart = 0;
-                    yStart = (canvas.height - renderableHeight) / 2;
-                } else {
-                    renderableHeight = canvas.height;
-                    renderableWidth = canvas.height * imgAspectRatio;
-                    xStart = (canvas.width - renderableWidth) / 2;
-                    yStart = 0;
-                }
-
-                // Draw image centered on canvas with high quality
-                context.imageSmoothingEnabled = true;
-                context.imageSmoothingQuality = 'high';
-                context.drawImage(img, xStart, yStart, renderableWidth, renderableHeight);
-
-                frame.currentIndex = index;
             }
-        }
 
-        // Initialize scroll-triggered animation
-        function startAnimation() {
-            // Kill any existing ScrollTrigger to avoid duplicates
-            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+            function loadImage(index) {
+                if (index >= 0 && index <= frame.maxIndex && images[index]) {
+                    const img = images[index];
+                    setCanvasSize();
+                    context.clearRect(0, 0, canvas.width, canvas.height);
 
-            const timeline = gsap.timeline({
-                scrollTrigger: {
-                    trigger: ".ipad-anim",
-                    start: "top top",
-                    end: isDesktop ? "bottom bottom" : "+=50%",
-                    scrub: 0.3,
-                    invalidateOnRefresh: true
+                    if (!img.complete) return;
+
+                    const imgAspectRatio = img.width / img.height;
+                    const canvasAspectRatio = canvas.width / canvas.height;
+
+                    let renderableWidth, renderableHeight, xStart, yStart;
+
+                    if (imgAspectRatio > canvasAspectRatio) {
+                        renderableWidth = canvas.width;
+                        renderableHeight = canvas.width / imgAspectRatio;
+                        xStart = 0;
+                        yStart = (canvas.height - renderableHeight) / 2;
+                    } else {
+                        renderableHeight = canvas.height;
+                        renderableWidth = canvas.height * imgAspectRatio;
+                        xStart = (canvas.width - renderableWidth) / 2;
+                        yStart = 0;
+                    }
+
+                    context.imageSmoothingEnabled = true;
+                    context.imageSmoothingQuality = 'high';
+                    context.drawImage(img, xStart, yStart, renderableWidth, renderableHeight);
+                    frame.currentIndex = index;
                 }
-            });
-
-            timeline.to(frame, {
-                currentIndex: frame.maxIndex,
-                roundProps: "currentIndex",
-                onUpdate: () => loadImage(Math.floor(frame.currentIndex)),
-                ease: "none"
-            });
-        }
-
-        // Handle window resize
-        function handleResize() {
-            setCanvasSize();
-            if (frame.currentIndex >= 0) {
-                loadImage(frame.currentIndex);
             }
-            ScrollTrigger.refresh();
-        }
 
-        // Initialize everything when DOM is ready
-        function init() {
-            // Wait for DOM to be fully loaded
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', () => {
-                    initializeApp();
+            function startAnimation() {
+                const isDesktop = window.matchMedia("(min-width:992px)").matches;
+
+                const timeline = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: ".ipad-anim",
+                        start: "top top",
+                        end: isDesktop ? "bottom bottom" : "+=50%",
+                        scrub: 0.3,
+                        invalidateOnRefresh: true
+                    }
                 });
-            } else {
-                initializeApp();
+
+                timeline.to(frame, {
+                    currentIndex: frame.maxIndex,
+                    roundProps: "currentIndex",
+                    onUpdate: () => loadImage(Math.floor(frame.currentIndex)),
+                    ease: "none"
+                });
             }
-        }
 
-        function initializeApp() {
-            // Set initial canvas size
+            function handleResize() {
+                setCanvasSize();
+                if (frame.currentIndex >= 0) {
+                    loadImage(frame.currentIndex);
+                }
+                ScrollTrigger.refresh();
+            }
+
+            // Initialize
             setCanvasSize();
-
-            // Add CSS to ensure canvas displays correctly
             canvas.style.display = 'block';
             canvas.style.margin = '0 auto';
-
-            // Start preloading images
             preloadImages();
 
-            // Add resize listener with debounce
-            let resizeTimeout;
             window.addEventListener('resize', () => {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(handleResize, 250);
+                clearTimeout(window.resizeTimeout);
+                window.resizeTimeout = setTimeout(handleResize, 250);
             });
-
-            // Initial refresh after a short delay to ensure everything is rendered
-            setTimeout(() => {
-                ScrollTrigger.refresh();
-            }, 1000);
-        }
-
-        // Start the application
-        init();
+        })();
     </script>
-
-
 
     <script>
         $(document).ready(function () {
-            // gsap.registerPlugin(ScrollTrigger);
-
             const isDesktop = window.matchMedia("(min-width:992px)").matches;
-            const isMobile = window.matchMedia("(max-width:992px)").matches;
-
-
 
             $('#traditional-way').load(isDesktop ? '/images/svg/traditional-way.html' : '/images/svg/traditional-way-mobile.html', function () {
 
@@ -989,15 +1423,13 @@
                 }, 200);
 
             });
+
         });
     </script>
 
-
     <script>
         setTimeout(() => {
-
             const isDesktop = window.matchMedia("(min-width: 768px)").matches;
-            const isMobile = window.matchMedia("(max-width: 767px)").matches;
 
             let tl4 = gsap.timeline({
                 scrollTrigger: {
@@ -1011,786 +1443,13 @@
             });
 
             if (isDesktop) {
-                // DESKTOP
-                tl4.to(".sets-us-bg .right-part", {
-                    y: "-60%", // safer than transform
-                });
-
-                tl4.to(".right-part .small-img", {
-                    bottom: 100,
-                }, "<");
-
+                tl4.to(".sets-us-bg .right-part", { y: "-60%" })
+                    .to(".right-part .small-img", { bottom: 100 }, "<");
             } else {
-                // MOBILE
-                tl4.to(".sets-us-bg .right-part", {
-                    y: "0%",
-                });
-
-                tl4.to(".right-part .small-img", {
-                    scrub: 2,
-                    bottom: 50,
-                }, "<");
+                tl4.to(".sets-us-bg .right-part", { y: "0%" })
+                    .to(".right-part .small-img", { bottom: 50 }, "<");
             }
-
         }, 1000);
-    </script>
-
-    <script>
-        // Enhanced fade-in animation on page load
-        window.addEventListener('load', function () {
-            // First, set initial states for animations - FIXED: Don't hide sections
-            gsap.set("header", { opacity: 0, y: -20 });
-            gsap.set(".ipad-anim", { opacity: 0, scale: 0.95 });
-            gsap.set(".text-section h1", { opacity: 0, y: 40, rotationX: -15 });
-            gsap.set(".text-section p", { opacity: 0, x: -30 });
-            gsap.set(".text-section a", { opacity: 0, scale: 0.8 });
-
-            // Ensure first section is fully visible immediately
-            gsap.set("main > section:first-of-type", {
-                opacity: 1,
-                visibility: 'visible',
-                display: 'block'
-            });
-
-            // Ensure footer is visible
-            gsap.set("footer", {
-                opacity: 1,
-                visibility: 'visible'
-            });
-
-            // Create a master timeline for page load animations
-            const pageLoadTl = gsap.timeline({
-                defaults: {
-                    duration: 1.2,
-                    ease: "power3.out"
-                }
-            });
-
-            // Staggered entrance animation for header and first section
-            pageLoadTl
-                .fromTo("header",
-                    { opacity: 0, y: -30 },
-                    { opacity: 1, y: 0, duration: 1, ease: "back.out(1.2)" },
-                    0.2
-                )
-                .fromTo(".ipad-anim",
-                    { opacity: 0, scale: 0.95 },
-                    { opacity: 1, scale: 1, duration: 1.4, ease: "elastic.out(1, 0.5)" },
-                    0.4
-                )
-                .fromTo(".text-section h1",
-                    { opacity: 0, y: 40, rotationX: -15 },
-                    { opacity: 1, y: 0, rotationX: 0, duration: 1.3, ease: "power3.out" },
-                    0.6
-                )
-                .fromTo(".text-section p",
-                    { opacity: 0, x: -30 },
-                    { opacity: 1, x: 0, duration: 1.2 },
-                    0.8
-                )
-                .fromTo(".text-section a",
-                    { opacity: 0, scale: 0.8 },
-                    {
-                        opacity: 1,
-                        scale: 1,
-                        duration: 0.8,
-                        ease: "back.out(1.5)",
-                        boxShadow: "0 10px 30px rgba(0,0,0,0.2)"
-                    },
-                    1
-                );
-
-            // Animate remaining sections (skip first section)
-            gsap.utils.toArray("main > section:not(:first-of-type)").forEach((section, index) => {
-                // Set initial state for sections
-                gsap.set(section, {
-                    opacity: 0,
-                    y: 50,
-                    scale: 0.98,
-                    rotationX: 5,
-                    transformPerspective: 1000
-                });
-
-                // Create scroll trigger for each section
-                ScrollTrigger.create({
-                    trigger: section,
-                    start: "top 80%", // When top of section hits 80% of viewport
-                    end: "bottom 20%",
-                    toggleActions: "play none none reverse",
-                    once: true, // Animation happens only once
-                    onEnter: () => {
-                        // Enhanced entrance animation
-                        gsap.to(section, {
-                            opacity: 1,
-                            y: 0,
-                            scale: 1,
-                            rotationX: 0,
-                            duration: 1.2,
-                            ease: "power3.out",
-                            clearProps: "transform,opacity" // Clear after animation
-                        });
-
-                        // Add special animations for specific sections
-                        if (section.querySelector('.cards-list')) {
-                            gsap.utils.toArray(".card-item", section).forEach((card, i) => {
-                                gsap.fromTo(card,
-                                    {
-                                        opacity: 0,
-                                        y: 60,
-                                        rotationY: -10
-                                    },
-                                    {
-                                        opacity: 1,
-                                        y: 0,
-                                        rotationY: 0,
-                                        duration: 0.8,
-                                        delay: i * 0.15,
-                                        ease: "back.out(1.2)"
-                                    }
-                                );
-                            });
-                        }
-                    },
-                    onLeaveBack: () => {
-                        // Fade out when scrolling back up (optional)
-                        if (index > 1) { // Keep first few sections visible when scrolling up
-                            gsap.to(section, {
-                                opacity: 0.3,
-                                duration: 0.5,
-                                ease: "power1.out"
-                            });
-                        }
-                    },
-                    onEnterBack: () => {
-                        // Fade back in when scrolling back down
-                        if (index > 1) {
-                            gsap.to(section, {
-                                opacity: 1,
-                                duration: 0.5,
-                                ease: "power1.out"
-                            });
-                        }
-                    }
-                });
-            });
-
-            // Animate footer when it comes into view
-            ScrollTrigger.create({
-                trigger: "footer",
-                start: "top 90%",
-                once: true,
-                onEnter: () => {
-                    gsap.fromTo("footer",
-                        { opacity: 0, y: 50 },
-                        {
-                            opacity: 1,
-                            y: 0,
-                            duration: 1,
-                            ease: "power3.out"
-                        }
-                    );
-
-                    // Animate footer elements
-                    gsap.utils.toArray(".footer-links li").forEach((li, i) => {
-                        gsap.fromTo(li,
-                            { opacity: 0, x: -30 },
-                            {
-                                opacity: 1,
-                                x: 0,
-                                duration: 0.6,
-                                delay: i * 0.1,
-                                ease: "back.out(1.2)"
-                            }
-                        );
-                    });
-                }
-            });
-
-            // Enhanced animation for "What sets us apart?" section
-            const setsApartSection = document.querySelector('.sets-us-bg');
-            if (setsApartSection) {
-                ScrollTrigger.create({
-                    trigger: setsApartSection,
-                    start: "top 70%",
-                    once: true,
-                    onEnter: () => {
-                        // Animate text
-                        gsap.fromTo(".sets-us h2, .sets-us h3",
-                            {
-                                opacity: 0,
-                                x: -40,
-                                skewX: 5
-                            },
-                            {
-                                opacity: 1,
-                                x: 0,
-                                skewX: 0,
-                                duration: 1,
-                                stagger: 0.2,
-                                ease: "power3.out"
-                            }
-                        );
-
-                        // Animate the icons
-                        gsap.utils.toArray(".right-part li").forEach((item, i) => {
-                            gsap.fromTo(item,
-                                {
-                                    opacity: 0,
-                                    scale: 0.8,
-                                    rotation: -10
-                                },
-                                {
-                                    opacity: 1,
-                                    scale: 1,
-                                    rotation: 0,
-                                    duration: 0.8,
-                                    delay: i * 0.1,
-                                    ease: "elastic.out(1, 0.5)"
-                                }
-                            );
-                        });
-                    }
-                });
-            }
-
-            // Add hover effects
-            addHoverEffects();
-
-            // Add loading progress bar
-            addProgressBar();
-        });
-
-        // Function to add hover effects
-        function addHoverEffects() {
-            // Add hover effects to buttons
-            const buttons = document.querySelectorAll('a, .btn-view-all');
-            buttons.forEach(button => {
-                button.addEventListener('mouseenter', () => {
-                    gsap.to(button, {
-                        scale: 1.05,
-                        duration: 0.3,
-                        ease: "power2.out"
-                    });
-                });
-
-                button.addEventListener('mouseleave', () => {
-                    gsap.to(button, {
-                        scale: 1,
-                        duration: 0.3,
-                        ease: "power2.out"
-                    });
-                });
-            });
-
-            // Add micro-interactions to cards
-            const cards = document.querySelectorAll('.flip-card');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    gsap.to(card, {
-                        y: -10,
-                        boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
-                        duration: 0.4,
-                        ease: "power2.out"
-                    });
-                });
-
-                card.addEventListener('mouseleave', () => {
-                    gsap.to(card, {
-                        y: 0,
-                        boxShadow: "none",
-                        duration: 0.4,
-                        ease: "power2.out"
-                    });
-                });
-            });
-        }
-
-        // Function to add progress bar
-        function addProgressBar() {
-            const progressBar = document.createElement('div');
-            progressBar.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 3px;
-        background: linear-gradient(90deg, #4CAF50, #2196F3);
-        z-index: 9999;
-        transform: scaleX(0);
-        transform-origin: left;
-    `;
-            document.body.appendChild(progressBar);
-
-            // Animate progress bar
-            gsap.to(progressBar, {
-                scaleX: 1,
-                duration: 2,
-                ease: "power3.out",
-                onComplete: () => {
-                    gsap.to(progressBar, {
-                        opacity: 0,
-                        duration: 0.5,
-                        onComplete: () => progressBar.remove()
-                    });
-                }
-            });
-        }
-
-        // Function to create custom cursor with provided SVG
-        function createThemedCursor() {
-            // Create cursor element
-            const cursor = document.createElement('div');
-            cursor.id = 'custom-cursor';
-            cursor.innerHTML = `
-        <div class="cursor-main">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="cursor-svg">
-                <path d="M4.5.79v22.42l6.56-6.57h9.29L4.5.79z" class="cursor-path"/>
-            </svg>
-        </div>
-        <div class="cursor-ring"></div>
-    `;
-            document.body.appendChild(cursor);
-
-            // Add CSS for custom cursor
-            const cursorStyle = document.createElement('style');
-            cursorStyle.textContent = `
-        #custom-cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 99999;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s;
-            mix-blend-mode: difference;
-        }
-        
-        .cursor-main {
-            position: absolute;
-            transform: translate(-50%, -50%);
-            filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.5));
-            transition: transform 0.2s ease;
-        }
-        
-        .cursor-svg {
-            width: 24px;
-            height: 24px;
-            transition: all 0.2s ease;
-        }
-        
-        .cursor-path {
-            fill: #667eea;
-            stroke: #ffffff;
-            stroke-width: 0.5;
-            transition: all 0.2s ease;
-        }
-        
-        // .cursor-ring {
-        //     position: absolute;
-        //     width: 40px;
-        //     height: 40px;
-        //     border: 2px solid rgba(102, 126, 234, 0.3);
-        //     border-radius: 50%;
-        //     transform: translate(-50%, -50%);
-        //     transition: all 0.15s ease-out;
-        //     background: transparent;
-        // }
-        
-        /* Cursor states */
-        .cursor-hover .cursor-path {
-            fill: #4CAF50;
-            stroke: #ffffff;
-            filter: drop-shadow(0 0 3px rgba(76, 175, 80, 0.5));
-        }
-        
-        .cursor-hover .cursor-ring {
-            width: 50px;
-            height: 50px;
-            border-color: rgba(76, 175, 80, 0.4);
-            border-width: 2px;
-        }
-        
-        .cursor-click .cursor-path {
-            fill: #FF5722;
-            stroke: #ffffff;
-            transform: scale(0.9);
-        }
-        
-        .cursor-click .cursor-ring {
-            width: 45px;
-            height: 45px;
-            border-color: rgba(255, 87, 34, 0.5);
-            transform: translate(-50%, -50%) scale(0.9);
-        }
-        
-        /* Link hover effect - hand cursor */
-        .cursor-link .cursor-main {
-            transform: translate(-50%, -50%) scale(1.3);
-        }
-        
-        .cursor-link .cursor-path {
-            fill: #2196F3;
-            stroke: #ffffff;
-        }
-        
-        .cursor-link .cursor-ring {
-            width: 60px;
-            height: 60px;
-            border-color: rgba(33, 150, 243, 0.3);
-        }
-        
-        /* Hide default cursor on desktop */
-        @media (min-width: 769px) {
-            body, a, button, .flip-card, .btn-view-all, input, select, textarea {
-                cursor: none !important;
-            }
-        }
-        
-        /* Show custom cursor only on desktop */
-        @media (max-width: 768px) {
-            #custom-cursor {
-                display: none;
-            }
-            body, a, button, .flip-card, .btn-view-all, input, select, textarea {
-                cursor: auto !important;
-            }
-        }
-        
-        /* Loading state */
-        .cursor-loading .cursor-ring {
-            animation: spin 1s linear infinite;
-            border-top-color: #667eea;
-            border-right-color: transparent;
-            border-bottom-color: transparent;
-            border-left-color: transparent;
-        }
-        
-        @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-        
-        /* Text selection state */
-        .cursor-text .cursor-main {
-            transform: translate(-50%, -50%) rotate(90deg);
-        }
-        
-        .cursor-text .cursor-path {
-            fill: #9C27B0;
-        }
-    `;
-            document.head.appendChild(cursorStyle);
-
-            // Mouse movement tracking
-            let mouseX = 0;
-            let mouseY = 0;
-            let cursorX = 0;
-            let cursorY = 0;
-            let ringX = 0;
-            let ringY = 0;
-
-            const cursorMain = cursor.querySelector('.cursor-main');
-            const cursorRing = cursor.querySelector('.cursor-ring');
-
-            // Update cursor position
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-
-                // Show cursor when mouse moves
-                if (cursor.style.opacity === '0') {
-                    cursor.style.opacity = '1';
-                }
-            });
-
-            // Animate cursor with smooth follow
-            function animateCursor() {
-                // Main cursor follows immediately
-                cursorX = mouseX;
-                cursorY = mouseY;
-
-                // Ring follows with subtle delay
-                ringX += (mouseX - ringX) * 0.15;
-                ringY += (mouseY - ringY) * 0.15;
-
-                cursorMain.style.left = cursorX + 'px';
-                cursorMain.style.top = cursorY + 'px';
-
-                cursorRing.style.left = ringX + 'px';
-                cursorRing.style.top = ringY + 'px';
-
-                requestAnimationFrame(animateCursor);
-            }
-
-            // Start animation
-            setTimeout(() => animateCursor(), 100);
-
-            // Hover effects for interactive elements
-            const hoverElements = document.querySelectorAll('a, button, .flip-card, .btn-view-all, .card-item, input, select, textarea');
-
-            hoverElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursor.classList.add('cursor-hover');
-
-                    // For links and buttons, show hand cursor
-                    if (el.tagName === 'A' || el.classList.contains('btn-view-all') || el.tagName === 'BUTTON') {
-                        cursor.classList.add('cursor-link');
-                    }
-                });
-
-                el.addEventListener('mouseleave', () => {
-                    cursor.classList.remove('cursor-hover');
-                    cursor.classList.remove('cursor-link');
-                    cursor.classList.remove('cursor-text');
-                });
-            });
-
-            // Text selection effect
-            document.addEventListener('mousedown', (e) => {
-                cursor.classList.add('cursor-click');
-
-                // Check if target is text input or textarea
-                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
-                    cursor.classList.add('cursor-text');
-                }
-            });
-
-            document.addEventListener('mouseup', () => {
-                cursor.classList.remove('cursor-click');
-                cursor.classList.remove('cursor-text');
-            });
-
-            // Hide cursor when leaving window
-            document.addEventListener('mouseleave', () => {
-                cursor.style.opacity = '0';
-            });
-
-            document.addEventListener('mouseenter', () => {
-                cursor.style.opacity = '1';
-            });
-
-            // Add loading effect on page load
-            cursor.classList.add('cursor-loading');
-            setTimeout(() => {
-                cursor.classList.remove('cursor-loading');
-            }, 2000);
-        }
-
-        // Fixed scroll to top function
-        function addScrollToTop() {
-            const scrollIndicator = document.createElement('div');
-            scrollIndicator.innerHTML = `
-        <div class="scroll-to-top" style="
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            cursor: pointer;
-            z-index: 100;
-            opacity: 0;
-            transform: translateY(20px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-        ">
-            <i class="fas fa-chevron-up"></i>
-        </div>
-    `;
-            document.body.appendChild(scrollIndicator);
-
-            const scrollToTopBtn = scrollIndicator.querySelector('.scroll-to-top');
-
-            // FIXED: Proper scrollTo implementation
-            scrollToTopBtn.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-
-            // Show/hide scroll to top button
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 500) {
-                    gsap.to(scrollToTopBtn, {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.5,
-                        ease: "power2.out"
-                    });
-                } else {
-                    gsap.to(scrollToTopBtn, {
-                        opacity: 0,
-                        y: 20,
-                        duration: 0.5,
-                        ease: "power2.out"
-                    });
-                }
-            });
-        }
-
-        // Fixed smooth scroll for anchor links
-        function initSmoothScroll() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#' || targetId === '#!') return;
-
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        e.preventDefault();
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        }
-
-        // Add CSS for smooth animations
-        const style = document.createElement('style');
-        style.textContent = `
-    * {
-        scroll-behavior: smooth;
-    }
-    
-    body {
-        overflow-x: hidden;
-    }
-    
-    /* Ensure sections are visible by default */
-    main > section {
-        opacity: 1 !important;
-        visibility: visible !important;
-        display: block !important;
-    }
-    
-    /* First section should always be visible */
-    main > section:first-of-type {
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: none !important;
-    }
-    
-    /* Footer should always be visible */
-    footer {
-        opacity: 1 !important;
-        visibility: visible !important;
-        display: block !important;
-    }
-    
-    .card-item {
-        transition: transform 0.3s ease;
-    }
-    
-    .flip-card {
-        transition: box-shadow 0.3s ease;
-    }
-    
-    a, button {
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    /* Pulse animation for CTA */
-    @keyframes pulse {
-        0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
-        70% { box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
-    }
-    
-    .text-section a {
-        animation: pulse 2s infinite;
-    }
-    
-    /* Image fade-in */
-    img {
-        transition: opacity 0.5s ease;
-    }
-    
-    /* Smooth scrollbar */
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-    
-    ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 5px;
-    }
-    
-    ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
-    }
-`;
-        document.head.appendChild(style);
-
-        // Initialize everything when DOM is ready
-        document.addEventListener('DOMContentLoaded', function () {
-            // Add scroll to top button
-            addScrollToTop();
-
-            // Create custom cursor with provided SVG
-            createThemedCursor();
-
-            // Initialize smooth scroll
-            initSmoothScroll();
-
-            // Ensure all sections are visible on page load
-            setTimeout(() => {
-                // Force visibility of all sections
-                document.querySelectorAll('main > section').forEach(section => {
-                    section.style.opacity = '1';
-                    section.style.visibility = 'visible';
-                });
-
-                // Ensure footer is visible
-                const footer = document.querySelector('footer');
-                if (footer) {
-                    footer.style.opacity = '1';
-                    footer.style.visibility = 'visible';
-                }
-            }, 100);
-
-            // Fix for any existing animations that might hide content
-            ScrollTrigger.addEventListener("refresh", () => {
-                document.querySelectorAll('main > section:first-of-type, footer').forEach(el => {
-                    gsap.set(el, { opacity: 1, visibility: 'visible' });
-                });
-            });
-
-            // Refresh ScrollTrigger after all content is loaded
-            setTimeout(() => {
-                ScrollTrigger.refresh();
-            }, 2000);
-        });
-
-        // Add a safety check to ensure content is always visible
-        window.addEventListener('scroll', function () {
-            const firstSection = document.querySelector('main > section:first-of-type');
-            const footer = document.querySelector('footer');
-
-            // Always ensure first section and footer are visible
-            if (firstSection) {
-                firstSection.style.opacity = '1';
-                firstSection.style.visibility = 'visible';
-            }
-
-            if (footer) {
-                footer.style.opacity = '1';
-                footer.style.visibility = 'visible';
-            }
-        });
     </script>
 
 </body>
