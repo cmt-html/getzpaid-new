@@ -891,7 +891,7 @@ html {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 
-  background: linear-gradient(270deg, #6784f1, #1c3180);
+  background: linear-gradient(135deg, #c0e7d9 0%, #0d9161 100%);
   background-size: 400% 400%;
   animation: gradientMove 6s ease infinite;
 }
@@ -913,7 +913,14 @@ html {
 @media (min-width: 992px) {
   @media (max-height: 768px) {
     .traditional-process-animation svg {
-      height: 35vh;
+      height: 40vh;
+    }
+    .sets-us-bg {
+      margin-bottom: 200px;
+    }
+
+    .traditional-para h2 {
+      margin-top: 15px;
     }
   }
 }

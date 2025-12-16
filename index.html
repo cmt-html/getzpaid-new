@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GetzPaid - Timely Payments Solution</title>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <meta name="description" content="GetzPaid - because patience is a virtue, but timely payments are divine.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="/scss/style.css">
@@ -325,7 +326,7 @@
                                 free collection process,
                                 similar to bank-like EMI methods.</h2>
 
-                            <a href="#" class="know-more-btn"> know more <i class="fa-solid fa-right-long"></i> </a>
+                            <a href="#" class="know-more-btn"> Know More <i class="fa-solid fa-right-long"></i> </a>
                         </div>
                         <div class="right-part">
                             <ul>
@@ -953,110 +954,103 @@
         // Add global styles with new color scheme
         const globalStyle = document.createElement('style');
         globalStyle.textContent = `
-            * {
-                scroll-behavior: smooth;
-            }
-            
-            /* Scrollbar styling with new gradient */
-            ::-webkit-scrollbar {
-                width: 10px;
-            }
-            
-            ::-webkit-scrollbar-track {
-                background: #f1f1f1;
-            }
-            
-            ::-webkit-scrollbar-thumb {
-                background: linear-gradient(135deg, #6784F1 0%, #1C3180 100%);
-                border-radius: 5px;
-            }
-            
-            ::-webkit-scrollbar-thumb:hover {
-                background: linear-gradient(135deg, #5a67d8 0%, #152a73 100%);
-            }
-            
-            /* Button effects with new gradient */
-            .text-section .cta-btn,
-            .fitll-btn,
-            .btn-sec a,
-            .btn-view-all {
-                position: relative;
-                overflow: hidden;
-                z-index: 1;
-            }
-            
-            .text-section .cta-btn:hover::after,
-            
-            .fitll-btn:hover::after,
-            .btn-sec a:hover::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(135deg, #6784F1 0%, #1C3180 100%);
-                z-index: -1;
-                opacity: 0.1;
-                transition: opacity 0.3s ease;
-            }
-            
-            /* Enhanced button hover effects */
-            .text-section .cta-btn {
-                background: linear-gradient(135deg, #6784F1 0%, #1C3180 100%);
-                color: white;
-                padding: 15px 40px;
-                border-radius: 30px;
-                text-decoration: none;
-                display: inline-block;
-                font-weight: bold;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                transition: all 0.3s ease;
-                border: none;
-                box-shadow: 0 5px 15px rgba(103, 132, 241, 0.3);
-            }
-            
-            .text-section .cta-btn:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 10px 25px rgba(103, 132, 241, 0.4);
-            }
-            
-            /* Pulse animation for CTA with new colors */
-            @keyframes pulse {
-                0% { box-shadow: 0 0 0 0 rgba(103, 132, 241, 0.4); }
-                70% { box-shadow: 0 0 0 10px rgba(103, 132, 241, 0); }
-                100% { box-shadow: 0 0 0 0 rgba(103, 132, 241, 0); }
-            }
-            
-            .text-section .cta-btn {
-                animation: pulse 2s infinite;
-            }
-            
-            /* Ensure all sections are visible */
-            main > section {
-                opacity: 1 !important;
-                visibility: visible !important;
-            }
-            
-            footer {
-                opacity: 1 !important;
-                visibility: visible !important;
-            }
-            
-            /* Smooth transitions */
-            .card-item, .flip-card {
-                transition: all 0.3s ease;
-            }
-            
-            /* Fix for image sequences */
-            .canvas {
-                display: block;
-                margin: 0 auto;
-                max-width: 100%;
-                height: auto;
-            }
-        `;
+    * {
+        scroll-behavior: smooth;
+    }
+
+    /* Scrollbar styling with new gradient */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #C0E7D9 0%, #0D9161 100%);
+        border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(135deg, #A8DCCB 0%, #0B7F55 100%);
+    }
+
+    /* Button effects with new gradient */
+    .text-section .cta-btn,
+    .fitll-btn,
+    .btn-sec a,
+    .btn-view-all {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .text-section .cta-btn:hover::after,
+    .fitll-btn:hover::after,
+    .btn-sec a:hover::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, #7cb4a0 0%, #0D9161 100%)
+        z-index: -1;
+        opacity: 0.12;
+        transition: opacity 0.3s ease;
+    }
+
+    /* Enhanced button hover effects */
+    .text-section .cta-btn {
+        background: linear-gradient(135deg, #7cb4a0 0%, #0D9161 100%)
+        color: #ffffff;
+        padding: 15px 40px;
+        border-radius: 30px;
+        text-decoration: none;
+        display: inline-block;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        border: none;
+        box-shadow: 0 5px 15px rgba(13, 145, 97, 0.35);
+    }
+
+    .text-section .cta-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(13, 145, 97, 0.45);
+    }
+
+    /* Pulse animation for CTA */
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(13, 145, 97, 0.45); }
+        70% { box-shadow: 0 0 0 12px rgba(13, 145, 97, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(13, 145, 97, 0); }
+    }
+
+    .text-section .cta-btn {
+        animation: pulse 2s infinite;
+    }
+
+    /* Ensure all sections are visible */
+    main > section,
+    footer {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    /* Smooth transitions */
+    .card-item, .flip-card {
+        transition: all 0.3s ease;
+    }
+
+    /* Fix for image sequences */
+    .canvas {
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+        height: auto;
+    }
+`;
+
         document.head.appendChild(globalStyle);
     </script>
 
