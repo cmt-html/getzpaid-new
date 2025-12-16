@@ -135,6 +135,8 @@ body {
 
 a {
   transition: all 0.5s;
+  position: relative;
+  z-index: 99;
 }
 a:hover {
   transform: scale(1.03);
@@ -147,17 +149,67 @@ header {
   top: 0;
   left: 0;
   z-index: 1000;
+  padding: 20px 0;
+  background: #fff;
+  box-shadow: 0px 0px 10px 1px #f0f0f0;
 }
 header img {
   max-width: 100%;
   width: 100%;
   height: auto;
 }
+header .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header .logo {
+  max-width: 100px;
+  width: 100%;
+  display: flex;
+}
+header nav {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+header nav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  gap: 40px;
+  position: relative;
+}
+header nav ul:first-child::before {
+  content: "";
+  position: absolute;
+  right: -20px;
+  height: 100%;
+  width: 1px;
+  background: #e6e6e6;
+}
+header nav ul li a {
+  text-decoration: none;
+  color: #000000;
+  line-height: normal;
+  font-size: 16px;
+}
+header nav ul li a:hover {
+  font-weight: 500;
+}
 
 .container {
   max-width: 1300px;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+.sign-up-btn {
+  background: #0b0b0b;
+  color: #fff;
+  padding: 16px 34px;
+  border-radius: 25px;
 }
 
 .ipad-anim {
@@ -247,7 +299,7 @@ header img {
 .getz-anim-wrapper .coin-sec {
   position: absolute;
   bottom: 10px;
-  right: 20%;
+  right: 16%;
   max-width: 100px;
 }
 .getz-anim-wrapper .coin-sec img {
@@ -949,6 +1001,11 @@ html {
     row-gap: 50px;
   }
 }
+@media (min-width: 768px) {
+  .hamburger-menu {
+    display: none;
+  }
+}
 @media (max-width: 1024px) {
   .text-section h1 {
     font-size: 40px;
@@ -995,9 +1052,24 @@ html {
   #getz-paid-way-svg svg {
     height: auto;
   }
+  header {
+    padding: 15px 0;
+  }
+  header nav ul {
+    gap: 25px;
+  }
+  header nav ul li a {
+    font-size: 14px;
+  }
+  header .sign-up-btn {
+    padding: 12px 20px;
+  }
+  header .logo {
+    max-width: 80px;
+  }
 }
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .iPad-image-sequence {
     height: 100vh;
   }
@@ -1054,6 +1126,42 @@ html {
   }
   .who-is-getzPAID + .cards ul {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+  header {
+    padding: 10px 0;
+  }
+  .hamburger-menu {
+    max-width: 45px;
+    z-index: 1;
+    display: flex;
+  }
+  .nav-wrapper {
+    position: fixed;
+    right: -100%;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #6784f1 0%, #1c3180 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s;
+  }
+  .nav-wrapper.active {
+    right: 0;
+  }
+  header nav ul li a {
+    color: #fff;
+    font-size: 16px;
+  }
+  header nav,
+  header ul {
+    flex-direction: column;
+  }
+  header nav::before,
+  header ul::before {
+    display: none;
   }
 }
 @media (max-width: 767px) {
