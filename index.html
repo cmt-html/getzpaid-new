@@ -1182,9 +1182,9 @@
 
                 const timeline = gsap.timeline({
                     scrollTrigger: {
-                        trigger: isDesktop? ".ipad-anim": ".iPad-image-sequence",
+                        trigger: ".ipad-anim",
                         scroller: "body",
-                        start: isDesktop ? "top top" : "top center",
+                        start: isDesktop ? "top top" : "top top",
                         end: isDesktop ? "bottom bottom" : "bottom bottom",
                         scrub: isDesktop ? 0.3 : 2,
                         invalidateOnRefresh: true
