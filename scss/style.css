@@ -1244,6 +1244,9 @@ html {
     right: -15px;
     max-width: 50px;
   }
+  .pending-section {
+    margin-top: -100px;
+  }
 }
 @media (max-width: 600px) {
   .card-item {
@@ -1256,13 +1259,13 @@ html {
     display: flex;
     flex-direction: column-reverse;
     justify-content: flex-end;
-    min-height: 100vh;
+    min-height: initial;
   }
   .ipad-anim .text-section {
     position: static;
     width: 100%;
     margin: 0;
-    margin-top: 70px;
+    margin-top: 10px;
   }
   .ipad-anim .iPad-image-sequence {
     height: 50vh;
@@ -1317,5 +1320,12 @@ html {
   }
   .traditional-para {
     margin-bottom: 40px;
+  }
+  .sets-us-bg {
+    padding-block: 0px;
+  }
+  .text-section .cta-btn {
+    display: block;
+    text-align: center;
   }
 }/*# sourceMappingURL=style.css.map */

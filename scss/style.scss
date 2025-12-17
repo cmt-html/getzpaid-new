@@ -1296,6 +1296,10 @@ html {
     right: -15px;
     max-width: 50px;
   }
+
+  .pending-section {
+    margin-top: -100px;
+  }
 }
 
 // * {
@@ -1315,13 +1319,13 @@ html {
     display: flex;
     flex-direction: column-reverse;
     justify-content: flex-end;
-    min-height: 100vh;
+    min-height: initial;
 
     .text-section {
       position: static;
       width: 100%;
       margin: 0;
-      margin-top: 70px;
+      margin-top: 10px;
     }
 
     .iPad-image-sequence {
@@ -1393,5 +1397,14 @@ html {
 
   .traditional-para {
     margin-bottom: 40px;
+  }
+
+  .sets-us-bg {
+    padding-block: 0px;
+  }
+
+  .text-section .cta-btn {
+    display: block;
+    text-align: center;
   }
 }
