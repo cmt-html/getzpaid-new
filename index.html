@@ -1182,11 +1182,11 @@
 
                 const timeline = gsap.timeline({
                     scrollTrigger: {
-                        trigger: ".ipad-anim",
+                        trigger: isDesktop? ".ipad-anim": ".iPad-image-sequence",
                         scroller: "body",
-                        start: isDesktop ? "top top" : "top =+200px",
-                        end: isDesktop ? "bottom bottom" : "bottom center",
-                        scrub: isDesktop ? 0.3 : 0.5,
+                        start: isDesktop ? "top top" : "top center",
+                        end: isDesktop ? "bottom bottom" : "bottom bottom",
+                        scrub: isDesktop ? 0.3 : 2,
                         invalidateOnRefresh: true
                     }
                 });

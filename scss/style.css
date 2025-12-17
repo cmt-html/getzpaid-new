@@ -1150,9 +1150,10 @@ html {
     height: 100%;
     background: linear-gradient(135deg, #6784f1 0%, #1c3180 100%);
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     transition: 0.5s;
+    padding-top: 130px;
   }
   .nav-wrapper.active {
     right: 0;
@@ -1277,7 +1278,7 @@ html {
     display: flex;
     align-items: flex-start;
     flex-direction: column;
-    gap: 20px;
+    gap: 5px;
   }
   .pending-payment .who-is-getzPAID h2,
   .pending-payment .traditional-para h2,
