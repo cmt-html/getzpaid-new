@@ -1300,6 +1300,10 @@ html {
   .pending-section {
     margin-top: -100px;
   }
+
+  header .sign-up-btn {
+    padding: 12px 70px;
+  }
 }
 
 // * {
@@ -1406,5 +1410,9 @@ html {
   .text-section .cta-btn {
     display: block;
     text-align: center;
+  }
+
+  .hamburger-menu {
+    max-width: 35px;
   }
 }

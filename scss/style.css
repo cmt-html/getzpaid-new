@@ -1247,6 +1247,9 @@ html {
   .pending-section {
     margin-top: -100px;
   }
+  header .sign-up-btn {
+    padding: 12px 70px;
+  }
 }
 @media (max-width: 600px) {
   .card-item {
@@ -1327,5 +1330,8 @@ html {
   .text-section .cta-btn {
     display: block;
     text-align: center;
+  }
+  .hamburger-menu {
+    max-width: 35px;
   }
 }/*# sourceMappingURL=style.css.map */
