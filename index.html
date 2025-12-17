@@ -1172,7 +1172,7 @@
             }
 
             function startAnimation() {
-                const isDesktop = window.matchMedia("(min-width:992px)").matches;
+                const isDesktop = window.matchMedia("(min-width:992px)").matches || window.innerWidth >= 992;
 
                 const timeline = gsap.timeline({
                     scrollTrigger: {
@@ -1215,7 +1215,7 @@
 
     <script>
         $(document).ready(function () {
-            const isDesktop = window.matchMedia("(min-width:992px)").matches;
+            const isDesktop = window.matchMedia("(min-width:992px)").matches || window.innerWidth >= 992;
 
             $('#traditional-way').load(isDesktop ? '/images/svg/traditional-way.html' : '/images/svg/traditional-way-mobile.html', function () {
 
@@ -1453,7 +1453,7 @@
 
     <script>
         setTimeout(() => {
-            const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+            const isDesktop = window.matchMedia("(min-width: 992px)").matches || window.innerWidth >= 992;
 
             let tl4 = gsap.timeline({
                 scrollTrigger: {
