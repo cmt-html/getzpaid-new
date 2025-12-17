@@ -1185,8 +1185,8 @@
                         trigger: ".ipad-anim",
                         scroller: "body",
                         start: isDesktop ? "top top" : "top top",
-                        end: isDesktop ? "bottom bottom" : "bottom bottom",
-                        scrub: isDesktop ? 0.3 : 2,
+                        end: isDesktop ? "bottom bottom" : "bottom +=500px",
+                        scrub: isDesktop ? 0.3 : 0.5,
                         invalidateOnRefresh: true
                     }
                 });
