@@ -1473,14 +1473,17 @@
                 }
             });
 
-            if (isDesktop) {
-                tl4.to(".sets-us-bg .right-part", { y: "-60%" })
-                    .to(".right-part .small-img", { bottom: 100 }, "<");
-            } else {
-                tl4.to(".sets-us-bg .right-part", { y: "0%" })
-                    .to(".right-part .small-img", { bottom: 50 }, "<");
-            }
-        }, 1500);
+
+            tl4.to(".sets-us-bg .right-part", { y: isDesktop ? "-60%" : "0%" })
+                .to(".right-part .small-img", { bottom: isDesktop ? 100 : 50 }, "<");
+
+
+
+            // else {
+            //     tl4.to(".sets-us-bg .right-part", { y: "0%" })
+            //         .to(".right-part .small-img", { bottom: 50 }, "<");
+            // }
+        }, 0);
     </script>
 
 </body>
