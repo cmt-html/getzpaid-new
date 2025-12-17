@@ -1182,9 +1182,9 @@
                 const timeline = gsap.timeline({
                     scrollTrigger: {
                         trigger: ".ipad-anim",
-                        start: "top top",
+                        start: isDesktop ? "top top" : "top =+200px",
                         end: isDesktop ? "bottom bottom" : "+=50%",
-                        scrub: 0.3,
+                        scrub: isDesktop ? 0.3 : 1,
                         invalidateOnRefresh: true
                     }
                 });
@@ -1213,7 +1213,7 @@
 
             window.addEventListener('resize', () => {
                 clearTimeout(window.resizeTimeout);
-                window.resizeTimeout = setTimeout(handleResize, 250);
+                window.resizeTimeout = setTimeout(handleResize, 200);
             });
         })();
     </script>
@@ -1259,7 +1259,7 @@
                         scrollTrigger: {
                             trigger: ".traditional-way-track",
                             // scroller: "body",
-                            start: isDesktop ? "top top" : "top center", // Start when top of section hits top of viewport
+                            start: isDesktop ? "top top" : "top +=-20%", // Start when top of section hits top of viewport
                             // FIX: Pin the track so it stays on screen while we scroll
                             // pin: true,
                             // FIX: This adds 4000px of "virtual scroll" space. 
@@ -1393,7 +1393,7 @@
                         scrollTrigger: {
                             trigger: ".getz-paid-way-animation",
                             scroller: "body",
-                            start: isDesktop ? "top top" : "top center", // Start when top of section hits top of viewport
+                            start: isDesktop ? "top top" : "top +=10%", // Start when top of section hits top of viewport
                             // FIX: Pin the track so it stays on screen while we scroll
                             // pin: true,
                             // FIX: This adds 4000px of "virtual scroll" space. 
@@ -1478,7 +1478,7 @@
                 tl4.to(".sets-us-bg .right-part", { y: "0%" })
                     .to(".right-part .small-img", { bottom: 50 }, "<");
             }
-        }, 1000);
+        }, 1500);
     </script>
 
 </body>
