@@ -1049,7 +1049,7 @@ html {
     position: static;
   }
   .traditional-process-animation {
-    max-width: 300px;
+    max-width: 450px;
     margin: 50px auto;
     width: 100%;
   }
@@ -1072,6 +1072,12 @@ html {
   }
   header .logo {
     max-width: 80px;
+  }
+  .getz-anim-wrapper .coin-sec {
+    right: -14%;
+  }
+  .why-choose-getzPAID {
+    margin-block: 250px;
   }
 }
 /* Responsive adjustments */
@@ -1148,7 +1154,7 @@ html {
     bottom: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #6784f1 0%, #1c3180 100%);
+    background: #fff;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -1159,7 +1165,6 @@ html {
     right: 0;
   }
   header nav ul li a {
-    color: #fff;
     font-size: 16px;
   }
   header nav,
