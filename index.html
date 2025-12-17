@@ -1080,6 +1080,7 @@
                         duration: 0.5,
                         scrollTrigger: {
                             trigger: ".text-animation",
+                            scroller: "body",
                             start: "top 90%",
                             end: "bottom 50%",
                             scrub: 2,
@@ -1182,6 +1183,7 @@
                 const timeline = gsap.timeline({
                     scrollTrigger: {
                         trigger: ".ipad-anim",
+                        scroller: "body",
                         start: isDesktop ? "top top" : "top =+200px",
                         end: isDesktop ? "bottom bottom" : "+=50%",
                         scrub: isDesktop ? 0.3 : 1,
@@ -1258,13 +1260,13 @@
                     const tl = gsap.timeline({
                         scrollTrigger: {
                             trigger: ".traditional-way-track",
-                            // scroller: "body",
-                            start: isDesktop ? "top top" : "top +=-20%", // Start when top of section hits top of viewport
+                            scroller: "body",
+                            start: isDesktop ? "top top" : "top +=-50px", // Start when top of section hits top of viewport
                             // FIX: Pin the track so it stays on screen while we scroll
                             // pin: true,
                             // FIX: This adds 4000px of "virtual scroll" space. 
                             // Increase this number (e.g., 5000 or 6000) to make the animation SLOWER.
-                            end: isDesktop ? "bottom +=1500px" : "bottom bottom",
+                            end: isDesktop ? "bottom +=1500px" : "bottom center",
                             scrub: 2,
                             invalidateOnRefresh: true
                         },
