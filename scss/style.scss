@@ -109,7 +109,7 @@ header {
   width: 100%;
   position: sticky;
   top: 0;
-  height: 90vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -911,6 +911,9 @@ html {
 // Screen Height
 
 @media (min-width: 992px) {
+  .pending-section {
+    margin-top: -170px;
+  }
   @media (max-height: 768px) {
     .traditional-process-animation svg {
       height: 40vh;
