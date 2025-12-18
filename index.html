@@ -1099,7 +1099,7 @@
 
             const frame = {
                 currentIndex: 0,
-                maxIndex: 40
+                maxIndex: 119
             };
 
             const images = [];
@@ -1115,7 +1115,7 @@
 
             function preloadImages() {
                 for (let i = 0; i <= frame.maxIndex; i++) {
-                    const imageUrl = `images/ipad/${i.toString().padStart(4, '0')}.png`;
+                    const imageUrl = `images/ipad-new/View_.origRGB 2_${i.toString().padStart(5, '0')}.png`;
                     const img = new Image();
                     img.src = imageUrl;
 
@@ -1186,7 +1186,7 @@
                         scroller: "body",
                         start: isDesktop ? "top top" : "top top",
                         end: isDesktop ? "bottom bottom" : "bottom +=500px",
-                        scrub: isDesktop ? 0.3 : 0.5,
+                        scrub: isDesktop ? 0.1 : 0.5,
                         invalidateOnRefresh: true
                     }
                 });
